@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Onlin_Exam.DTO
 {
-    public class ChangePasswordViewModel
+    public class ChangePasswordDTO
     {
         [Required]
         [DataType(DataType.Password)]

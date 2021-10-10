@@ -1,3 +1,5 @@
+using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,13 +9,18 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Onlin_Exam.DBContext;
+using Onlin_Exam.Entities;
+using Onlin_Exam.Helpers;
 using Onlin_Exam.Models;
 using Onlin_Exam.Repositories;
+using Onlin_Exam.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Onlin_Exam
@@ -38,14 +45,46 @@ namespace Onlin_Exam
             });
 
             services.AddDbContext<OnlineDbContext>(options =>
-                 options.UseSqlServer(
+                     options.UseSqlServer(
                      Configuration.GetConnectionString("DefaultConnection")));
 
-           services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+           services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            // Auto Mapper Configurations
+            var mapperConfig = new AutoMapper.MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+            var appSettingSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingSection);
 
 
+            var appSetting = appSettingSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSetting.Secret);
 
-
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(x =>
+                {
+                    x.SaveToken = true;
+                    x.RequireHttpsMetadata = false;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ClockSkew = TimeSpan.FromMinutes(30),
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+            services.AddScoped<IUserInfoService, UserInfoService>();
         }
 
 
@@ -62,6 +101,10 @@ namespace Onlin_Exam
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // authorize
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseAuthorization();
 

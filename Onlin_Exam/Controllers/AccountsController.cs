@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Onlin_Exam.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class AccountsController : ControllerBase
@@ -36,7 +37,7 @@ namespace Onlin_Exam.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register([FromBody] RegisterViewModel model)
+        public IActionResult Register([FromBody] RegisterDTO model)
         {
             try
             {
@@ -66,7 +67,7 @@ namespace Onlin_Exam.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public IActionResult Login(LoginViewModel model)
+        public IActionResult Login(LoginDTO model)
         {
             var user = _repoUser
                 .GetByCondition(u => u.Email == model.Email && u.Password == model.Password)
@@ -84,7 +85,7 @@ namespace Onlin_Exam.Controllers
 
         [HttpPost]       
         [Route("ChangePassword")]
-        public IActionResult ChangePassword(ChangePasswordViewModel model)
+        public IActionResult ChangePassword(ChangePasswordDTO model)
         {
             var user = _repoUser.GetByCondition(u => u.Password == model.CurrentPassword).FirstOrDefault();
             if (user != null)

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Onlin_Exam.DTO
 {
-    public class CategoryViewModel
+    public class CategoryDTO
     {
-        public int Id { get; set; }
+       // public int Id { get; set; }
         public string Name { get; set; }
 
         //public List<Test> Tests { get; set; }

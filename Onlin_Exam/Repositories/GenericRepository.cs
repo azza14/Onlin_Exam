@@ -13,7 +13,7 @@ namespace Onlin_Exam.Repositories
     {
         private OnlineDbContext _context;
         private DbSet<T> table = null;
-       // private GenericRepository<T> repository;
+        // private GenericRepository<T> repository;
 
         public GenericRepository(GenericRepository<T> repository)
         {
@@ -40,7 +40,7 @@ namespace Onlin_Exam.Repositories
 
         public T GetById(int id)
         {
-           return table.Find(id);
+            return table.Find(id);
         }
 
         public void Insert(T model)
@@ -57,7 +57,7 @@ namespace Onlin_Exam.Repositories
         public void Update(T model)
         {
             table.Attach(model);
-            _context.Entry(model).State= EntityState.Modified;
+            _context.Entry(model).State = EntityState.Modified;
         }
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
@@ -65,9 +65,33 @@ namespace Onlin_Exam.Repositories
             return this._context.Set<T>().Where(expression).AsNoTracking();
         }
 
+        public T GetOne(Expression<Func<T, bool>> expression)
+        {
+            return this._context.Set<T>().Where(expression).FirstOrDefault();
+        }
+
+        public IList<T> GetList(Expression<Func<T, bool>> expression)
+        {
+            return this._context.Set<T>().Where(expression).ToList();
+        }
+
         public IList<T> GetByCondition(Expression<Func<T, bool>> expression)
         {
             return this._context.Set<T>().Where(expression).ToList();
         }
+
+        //search params   
+        //public List<T> GetList<T>(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includes) where T : class
+        //{
+        //    var query = _db.Set<T>().AsNoTracking();
+        //    foreach (var include in includes)
+        //        query = query.Include(include);
+        //    return query.Where(where).ToList();
+        //}
+        //public List<T> GetList<T>(Expression<Func<T, bool>> where, params string[] includes) where T : class
+        //{
+        //    var query = _db.Set<T>().AsNoTracking();
+        //    foreach (var include in includ
+        //}
     }
 }

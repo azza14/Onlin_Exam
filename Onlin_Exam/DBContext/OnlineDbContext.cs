@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Onlin_Exam.Entities;
 using Onlin_Exam.Models;
-using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace Onlin_Exam.DBContext
 {

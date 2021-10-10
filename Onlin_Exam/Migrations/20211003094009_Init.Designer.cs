@@ -10,15 +10,15 @@ using Onlin_Exam.DBContext;
 namespace Onlin_Exam.Migrations
 {
     [DbContext(typeof(OnlineDbContext))]
-    [Migration("20210905110426_init")]
-    partial class init
+    [Migration("20211003094009_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.9")
+                .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Onlin_Exam.Entities.Category", b =>

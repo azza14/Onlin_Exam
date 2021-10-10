@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Onlin_Exam.DTO;
 using Onlin_Exam.Entities;
@@ -15,16 +16,19 @@ namespace Onlin_Exam.Controllers
     public class CategoriesController : ControllerBase
     {
         private IGenericRepository<Category> _repository;
-        public CategoriesController(IGenericRepository<Category> repository)
+        private IMapper _mapper;
+        public CategoriesController(IGenericRepository<Category> repository, IMapper mapper)
         {
             this._repository = repository;
+            this._mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
             var categoryList = _repository.GetAll();
-            return Ok(categoryList);
+            var result= _mapper.Map<IEnumerable<CategoryDTO>>(categoryList);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
@@ -33,44 +37,46 @@ namespace Onlin_Exam.Controllers
             if (id == null)
                 return BadRequest();
             var category = _repository.GetById(id.Value);
-            return Ok(category);
+            var result = _mapper.Map<CategoryDTO>(category);
+            return Ok(result);
         }
        
         [HttpPost]
-        public IActionResult Create([FromBody] CategoryViewModel model)
+        public IActionResult Create([FromBody] CategoryDTO model)
         {
-            try
+             try
             {
-                if(model != null)
+                if (model == null)
                 {
-                    var category = new Category()
-                    {
-                        Id = model.Id,
-                        Name = model.Name
-                    };
-                    _repository.Insert(category);
+                    return BadRequest();
+                }
+                else 
+                {
+                    var obj = _mapper.Map<Category>(model);
+                    _repository.Insert(obj);
                     _repository.Save();
+                    return Ok(_mapper.Map<CategoryDTO>(obj));
                 }
             }
             catch
             {
                 throw;
             }
-            return Ok( new {  message= " create category success"});
+            //return Ok( new {  message= " create category success"});
         }
 
         [HttpPut("Update")]
-        public IActionResult Update(int id,[FromBody] CategoryViewModel model)
+        public IActionResult Update(int id,[FromBody] CategoryDTO model)
         {
             var category = _repository.GetById(id);
-               category.Id = id;
-               category.Name = model.Name;
+            if (category == null)
+                return NotFound();
+            var editCategory = _mapper.Map(model, category);
 
-             _repository.Update(category);
+             _repository.Update(editCategory);
             _repository.Save();
 
             return Ok(new  {  message= " update category success"});
-
         }
 
         [HttpDelete("Delete")]
@@ -83,7 +89,7 @@ namespace Onlin_Exam.Controllers
             {
                 _repository.Delete(id.Value);
                 _repository.Save();
-                return Ok( new { message = " delete category success" });
+                return Ok( new { message = "delete category success" });
             }
             catch
             {

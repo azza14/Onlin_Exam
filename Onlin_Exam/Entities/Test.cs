@@ -42,16 +42,9 @@ namespace Onlin_Exam.Entities
                 .HasMaxLength(10)
                 .HasColumnType("int");
 
-            //relations
             builder.HasOne<Category>(c => c.Category)
                 .WithMany(c => c.Tests)
                 .HasForeignKey(f => f.CategoryId);
-
-
-
-
         }
-
-       
     }
 }

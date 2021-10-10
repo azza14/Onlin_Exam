@@ -12,7 +12,7 @@ namespace Onlin_Exam.Entities
         public int Id { get; set; }
         public string    Name { get; set; }
 
-        public List<Test> Tests { get; set; }
+        public  virtual  List<Test> Tests { get; set; }
     }
     public class CategoryEntityConfiguration : IEntityTypeConfiguration<Category>
     {
