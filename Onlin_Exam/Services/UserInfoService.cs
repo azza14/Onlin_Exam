@@ -22,7 +22,7 @@ namespace Onlin_Exam.Services
                     UserInfoId=Guid.NewGuid(),
                     FullName="Ali Omar",
                     UserName="Ali",
-                    Password="test",
+                    Password="123",
                 }
         };
         public UserInfoService(IOptions<AppSettings> appSettings)

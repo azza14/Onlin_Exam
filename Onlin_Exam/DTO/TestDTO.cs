@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Onlin_Exam.DTO
 {
-    public class TestDTO
+    public class ExamDTO
     {
       //  public int Id { get; set; }
         [Required]

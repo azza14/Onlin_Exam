@@ -14,11 +14,11 @@ namespace Onlin_Exam.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TestsController : ControllerBase
+    public class ExamsController : ControllerBase
     {
-        private IGenericRepository<Test> _repository;
+        private IGenericRepository<Exam> _repository;
         private readonly IMapper _mapper;
-        public TestsController(IGenericRepository<Test> repository , IMapper mapper)
+        public ExamsController(IGenericRepository<Exam> repository , IMapper mapper)
         {
             this._repository = repository;
             _mapper = mapper;
@@ -27,27 +27,27 @@ namespace Onlin_Exam.Controllers
         [HttpGet("GetAll")]
         public IActionResult   GetAll()
         {
-            var listTest = _repository.GetAll();
-            var result = _mapper.Map<IEnumerable<TestDTO>>(listTest);
+            var listExam = _repository.GetAll();
+            var result = _mapper.Map<IEnumerable<ExamDTO>>(listExam);
             return Ok(result);
         }       
-        // GET api/<TestsController>/5
+        // GET api/<ExamsController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-          //  var test = new Test();
-            var test = _repository.GetById(id);
-            if (test == null)
+          //  var Exam = new Exam();
+            var Exam = _repository.GetById(id);
+            if (Exam == null)
                 return NotFound();
             else
             {
-                return Ok(_mapper.Map<TestDTO>(test));
+                return Ok(_mapper.Map<ExamDTO>(Exam));
             }
         }
 
-        // POST api/<TestsController>
+        // POST api/<ExamsController>
         [HttpPost]
-        public IActionResult Create([FromBody] TestDTO model)
+        public IActionResult Create([FromBody] ExamDTO model)
         {
             try
             {
@@ -58,17 +58,17 @@ namespace Onlin_Exam.Controllers
                 else //(model != null)
                 {
                     //try to use automapper 
-                    //var test = new Test()
+                    //var Exam = new Exam()
                     //{
                     //    Title = model.Title,
                     //    Description = model.Description,
                     //    QuestionsCount = model.QuestionsCount,
                     //    CategoryId = model.CategoryId
                     //};
-                    var obj = _mapper.Map<Test>(model);
+                    var obj = _mapper.Map<Exam>(model);
                     _repository.Insert(obj);
                     _repository.Save();
-                    return Ok(_mapper.Map<TestDTO>(obj));
+                    return Ok(_mapper.Map<ExamDTO>(obj));
                 }
             }
             catch
@@ -77,25 +77,25 @@ namespace Onlin_Exam.Controllers
             }
         }
 
-        // PUT api/<TestsController>/5
+        // PUT api/<ExamsController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] TestDTO model)
+        public IActionResult Update(int id, [FromBody] ExamDTO model)
         {
-            var test = _repository.GetById(id);
-            if (test == null)
+            var Exam = _repository.GetById(id);
+            if (Exam == null)
                 return NotFound();
-          var editTest=  _mapper.Map(model, test);
-            _repository.Update(editTest);
+          var editExam=  _mapper.Map(model, Exam);
+            _repository.Update(editExam);
             _repository.Save();
-            return Ok(new { message = " update Test success" });
+            return Ok(new { message = " update Exam success" });
         }
 
-        // DELETE api/<TestsController>/5
+        // DELETE api/<ExamsController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var test = _repository.GetById(id);
-            if (test == null)
+            var Exam = _repository.GetById(id);
+            if (Exam == null)
                 return NotFound();
             _repository.Delete(id);
             _repository.Save();

@@ -95,7 +95,7 @@ namespace Onlin_Exam
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TestRouting v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ExampRouting v1"));
             }
 
             app.UseHttpsRedirection();

@@ -38,7 +38,7 @@ namespace Onlin_Exam.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tests",
+                name: "Exams",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -50,11 +50,39 @@ namespace Onlin_Exam.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tests", x => x.Id);
+                    table.PrimaryKey("PK_Exams", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tests_Categories_CategoryId",
+                        name: "FK_Exams_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExamSessions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Score = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ExamId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExamSessions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ExamSessions_Exams_ExamId",
+                        column: x => x.ExamId,
+                        principalTable: "Exams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ExamSessions_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -67,43 +95,15 @@ namespace Onlin_Exam.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Degree = table.Column<int>(type: "int", nullable: false),
-                    TestId = table.Column<int>(type: "int", nullable: false)
+                    ExamId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Questions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Questions_Tests_TestId",
-                        column: x => x.TestId,
-                        principalTable: "Tests",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TestSessions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Score = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    TestId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TestSessions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TestSessions_Tests_TestId",
-                        column: x => x.TestId,
-                        principalTable: "Tests",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TestSessions_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
+                        name: "FK_Questions_Exams_ExamId",
+                        column: x => x.ExamId,
+                        principalTable: "Exams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -133,7 +133,9 @@ namespace Onlin_Exam.Migrations
                 columns: table => new
                 {
                     QuestionId = table.Column<int>(type: "int", nullable: false),
-                    ChoiceId = table.Column<int>(type: "int", nullable: false)
+                    ChoiceId = table.Column<int>(type: "int", nullable: false),
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Score = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -163,24 +165,24 @@ namespace Onlin_Exam.Migrations
                 column: "ChoiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Questions_TestId",
-                table: "Questions",
-                column: "TestId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tests_CategoryId",
-                table: "Tests",
+                name: "IX_Exams_CategoryId",
+                table: "Exams",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TestSessions_TestId",
-                table: "TestSessions",
-                column: "TestId");
+                name: "IX_ExamSessions_ExamId",
+                table: "ExamSessions",
+                column: "ExamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TestSessions_UserId",
-                table: "TestSessions",
+                name: "IX_ExamSessions_UserId",
+                table: "ExamSessions",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Questions_ExamId",
+                table: "Questions",
+                column: "ExamId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -189,7 +191,7 @@ namespace Onlin_Exam.Migrations
                 name: "CorrectAnswers");
 
             migrationBuilder.DropTable(
-                name: "TestSessions");
+                name: "ExamSessions");
 
             migrationBuilder.DropTable(
                 name: "Choices");
@@ -201,7 +203,7 @@ namespace Onlin_Exam.Migrations
                 name: "Questions");
 
             migrationBuilder.DropTable(
-                name: "Tests");
+                name: "Exams");
 
             migrationBuilder.DropTable(
                 name: "Categories");

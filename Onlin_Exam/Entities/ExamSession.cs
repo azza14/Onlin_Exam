@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Onlin_Exam.Entities
 {
-    public class TestSession
+    public class ExamSession
     {
         public int Id { get; set; }
        
@@ -16,8 +16,8 @@ namespace Onlin_Exam.Entities
         public int UserId { get; set; }
         public User Student { get; set; }
 
-        public int TestId { get; set; }
-        public Test Test{ get; set; }
+        public int ExamId { get; set; }
+        public Exam Exam{ get; set; }
 
 
 

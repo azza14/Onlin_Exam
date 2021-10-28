@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Onlin_Exam.Entities
 {
-    public class Test
+    public class Exam
     {
         public int Id { get; set; }
         public string   Title { get; set; }
@@ -21,9 +21,9 @@ namespace Onlin_Exam.Entities
         public List<Question> Questions { get; set; }
 
     }
-    public class TestEntityConfiguration : IEntityTypeConfiguration<Test>
+    public class ExamEntityConfiguration : IEntityTypeConfiguration<Exam>
     {
-        public void Configure(EntityTypeBuilder<Test> builder)
+        public void Configure(EntityTypeBuilder<Exam> builder)
         {
             builder.Property(e => e.Title)
                 .HasMaxLength(50)
@@ -43,7 +43,7 @@ namespace Onlin_Exam.Entities
                 .HasColumnType("int");
 
             builder.HasOne<Category>(c => c.Category)
-                .WithMany(c => c.Tests)
+                .WithMany(c => c.Exams)
                 .HasForeignKey(f => f.CategoryId);
         }
     }

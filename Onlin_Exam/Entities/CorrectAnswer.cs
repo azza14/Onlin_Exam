@@ -16,5 +16,7 @@ namespace Onlin_Exam.Entities
         [Key, Column(Order = 1)]
         public int ChoiceId { get; set; }
         public Choice Choice { get; set; }
+        public string Note { get; set; }
+        public int Score { get; set; }
     }
 }

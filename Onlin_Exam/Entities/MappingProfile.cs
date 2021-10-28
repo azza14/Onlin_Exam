@@ -12,7 +12,9 @@ namespace Onlin_Exam.Entities
         public MappingProfile()
         {
             CreateMap<Category, CategoryDTO>().ReverseMap();
-            CreateMap<Test, TestDTO>().ReverseMap();
+            CreateMap<Exam, ExamDTO>().ReverseMap();
+            CreateMap<Question, QuestionDTO>().ReverseMap();
+            CreateMap<Question, QuestionAllDTO>().ReverseMap();
         }
     }
 }

@@ -17,8 +17,8 @@ namespace Onlin_Exam.DBContext
         public DbSet<Choice> Choices { get; set; }
         public DbSet<CorrectAnswer> CorrectAnswers { get; set; }
         public DbSet<Question> Questions { get; set; }
-        public DbSet<Test> Tests { get; set; }
-        public DbSet<TestSession> TestSessions { get; set; }
+        public DbSet<Exam> Exams { get; set; }
+        public DbSet<ExamSession> ExamSessions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,7 +45,7 @@ namespace Onlin_Exam.DBContext
             //    .WillCascadeOnDelete(false);
 
             //    modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
-            //    modelBuilder.ApplyConfiguration(new TestEntityConfiguration());
+            //    modelBuilder.ApplyConfiguration(new ExamEntityConfiguration());
         }
     }
 }

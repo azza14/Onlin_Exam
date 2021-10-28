@@ -11,8 +11,8 @@ namespace Onlin_Exam.Entities
         public string Text { get; set; }
         public int Degree { get; set; }
 
-        public int TestId { get; set; }
-        public Test  Test{ get; set; }
+        public int ExamId { get; set; }
+        public Exam  Exam{ get; set; }
 
         public List<Choice> Choices { get; set; }
         public List<CorrectAnswer> ListCorrectAnswers { get; set; }

@@ -10,6 +10,6 @@ namespace Onlin_Exam.DTO
        // public int Id { get; set; }
         public string Name { get; set; }
 
-        //public List<Test> Tests { get; set; }
+        //public List<Exam> Exams { get; set; }
     }
 }
