@@ -19,7 +19,6 @@ namespace Onlin_Exam.Entities
         public Category   Category { get; set; }
 
         public List<Question> Questions { get; set; }
-
     }
     public class ExamEntityConfiguration : IEntityTypeConfiguration<Exam>
     {

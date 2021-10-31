@@ -8,15 +8,18 @@ namespace Onlin_Exam.Repositories
 {
   public  interface IGenericRepository<T> where T :class 
     {
-        public List<T> GetAll();
-        public T GetById( int id);
-        public void Insert( T model);
-        public void Update( T model);
-        public void Delete( int id);
-        public void Save( );
-        public T GetOne(Expression<Func<T, bool>> expression);
-        public IList<T> GetList(Expression<Func<T, bool>> expression);
-        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
-        public IList<T> GetByCondition(Expression<Func<T, bool>> expression);
+        List<T> GetAll();
+        IEnumerable<T> GetAll(params Expression<Func<T, object>>[] including);
+        T GetById( int id);
+        void Insert( T model);
+        T InsertWithReturn(T model);
+        List<T> InsertWithRange(List<T> models);
+        void Update( T model);
+        void Delete( int id);
+        void Save( );
+        T GetOne(Expression<Func<T, bool>> expression);
+        IList<T> GetList(Expression<Func<T, bool>> expression);
+        IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
+        IList<T> GetByCondition(Expression<Func<T, bool>> expression);
     }
 }

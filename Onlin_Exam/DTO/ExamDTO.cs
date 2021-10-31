@@ -9,13 +9,15 @@ namespace Onlin_Exam.DTO
 {
     public class ExamDTO
     {
-      //  public int Id { get; set; }
+        public int Id { get; set; }
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }
         [Required]
         public int QuestionsCount { get; set; }
         public int CategoryId { get;  set; }
+
+        public IList<QuestionDTO> Questions { get; set; }
     }
    
 

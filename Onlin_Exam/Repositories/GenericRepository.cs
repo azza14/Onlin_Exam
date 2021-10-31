@@ -37,6 +37,17 @@ namespace Onlin_Exam.Repositories
         {
             return table.ToList();
         }
+        public IEnumerable<T> GetAll(params Expression<Func<T, object>>[] including)
+        {
+            var query = table.AsQueryable();
+            if (including != null)
+            {
+                foreach (var include in including)
+                    query = query.Include(include);
+            }
+            return query;
+        }
+
 
         public T GetById(int id)
         {
@@ -46,7 +57,18 @@ namespace Onlin_Exam.Repositories
         public void Insert(T model)
         {
             table.Add(model);
-            Save();
+        }
+
+        public T InsertWithReturn(T model)
+        {
+            table.Add(model);
+            return model;
+        }
+
+        public List<T> InsertWithRange(List<T> models)
+        {
+            table.AddRange(models);
+            return models;
         }
 
         public void Save()
@@ -79,6 +101,8 @@ namespace Onlin_Exam.Repositories
         {
             return this._context.Set<T>().Where(expression).ToList();
         }
+
+       
 
         //search params   
         //public List<T> GetList<T>(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includes) where T : class

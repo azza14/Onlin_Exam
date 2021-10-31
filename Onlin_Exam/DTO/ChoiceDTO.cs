@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace Onlin_Exam.DTO
 {
-    public class QuestionDTO
+    public class ChoiceDTO
     {
         public int Id { get; set; }
         public string Text { get; set; }
-        public int Degree { get; set; }
+        public int QuestionId { get; set; }
 
-        public List<ChoiceDTO> Choices { get; set; }
-        //public List<CorrectAnswer> CorrectAnswers { get; set; }
 
+        //public IList<CorrectAnswer> CorrectAnswers { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,8 +17,28 @@ namespace Onlin_Exam.Entities
         public Exam  Exam{ get; set; }
 
         public List<Choice> Choices { get; set; }
-        public List<CorrectAnswer> ListCorrectAnswers { get; set; }
 
-        
+        public List<CorrectAnswer> CorrectAnswers { get; set; }
+        ///Notes Add Configurations
+        public class QuestionEntityConfiguration : IEntityTypeConfiguration<Question>
+        {
+            public void Configure(EntityTypeBuilder<Question> builder)
+            {
+                builder.HasKey(k => k.Id);
+
+                builder.Property(e => e.Text)
+                    .IsRequired()
+                    .HasColumnType("nvarchar(50)");
+
+                builder.Property(d => d.Degree)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .HasColumnType("int");
+                builder.HasOne<Exam>(c => c.Exam)
+                .WithMany(c => c.Questions)
+                .HasForeignKey(f => f.ExamId);
+            }
+        }
+
     }
 }

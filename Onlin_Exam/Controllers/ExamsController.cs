@@ -16,27 +16,35 @@ namespace Onlin_Exam.Controllers
     [ApiController]
     public class ExamsController : ControllerBase
     {
-        private IGenericRepository<Exam> _repository;
+        private IGenericRepository<Exam> _examRepo;
         private readonly IMapper _mapper;
-        public ExamsController(IGenericRepository<Exam> repository , IMapper mapper)
+        public ExamsController(IGenericRepository<Exam> repository, 
+            IMapper mapper)
         {
-            this._repository = repository;
+            this._examRepo = repository;
             _mapper = mapper;
         }
 
         [HttpGet("GetAll")]
-        public IActionResult   GetAll()
+        public IActionResult GetAll()
         {
-            var listExam = _repository.GetAll();
+            var listExam = _examRepo.GetAll();
             var result = _mapper.Map<IEnumerable<ExamDTO>>(listExam);
             return Ok(result);
-        }       
+        }
+        [HttpGet("GetExamWithQuestions")]
+        public IActionResult GetExamsWithQuestions()
+        {
+            var listExam = _examRepo.GetAll(x=>x.Questions);
+            var result = _mapper.Map<IEnumerable<ExamDTO>>(listExam);
+            return Ok(result);
+        }
         // GET api/<ExamsController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
           //  var Exam = new Exam();
-            var Exam = _repository.GetById(id);
+            var Exam = _examRepo.GetById(id);
             if (Exam == null)
                 return NotFound();
             else
@@ -45,7 +53,6 @@ namespace Onlin_Exam.Controllers
             }
         }
 
-        // POST api/<ExamsController>
         [HttpPost]
         public IActionResult Create([FromBody] ExamDTO model)
         {
@@ -55,38 +62,29 @@ namespace Onlin_Exam.Controllers
                 {
                     return BadRequest();
                 }
-                else //(model != null)
+                else 
                 {
-                    //try to use automapper 
-                    //var Exam = new Exam()
-                    //{
-                    //    Title = model.Title,
-                    //    Description = model.Description,
-                    //    QuestionsCount = model.QuestionsCount,
-                    //    CategoryId = model.CategoryId
-                    //};
-                    var obj = _mapper.Map<Exam>(model);
-                    _repository.Insert(obj);
-                    _repository.Save();
-                    return Ok(_mapper.Map<ExamDTO>(obj));
+                    var exam = _mapper.Map<Exam>(model);
+                    var examReturn = _examRepo.InsertWithReturn(exam);;
+                    _examRepo.Save();
+                    return Ok(_mapper.Map<ExamDTO>(examReturn));
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 throw;
             }
         }
-
-        // PUT api/<ExamsController>/5
+        
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] ExamDTO model)
         {
-            var Exam = _repository.GetById(id);
+            var Exam = _examRepo.GetById(id);
             if (Exam == null)
                 return NotFound();
           var editExam=  _mapper.Map(model, Exam);
-            _repository.Update(editExam);
-            _repository.Save();
+            _examRepo.Update(editExam);
+            _examRepo.Save();
             return Ok(new { message = " update Exam success" });
         }
 
@@ -94,11 +92,11 @@ namespace Onlin_Exam.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var Exam = _repository.GetById(id);
+            var Exam = _examRepo.GetById(id);
             if (Exam == null)
                 return NotFound();
-            _repository.Delete(id);
-            _repository.Save();
+            _examRepo.Delete(id);
+            _examRepo.Save();
             return Ok();
         }
     }

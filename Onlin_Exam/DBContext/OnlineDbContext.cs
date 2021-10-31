@@ -28,14 +28,14 @@ namespace Onlin_Exam.DBContext
 
             modelBuilder.Entity<CorrectAnswer>()
                         .HasOne<Question>(ca => ca.Question)
-                        .WithMany(q => q.ListCorrectAnswers)
+                        .WithMany(q => q.CorrectAnswers)
                        .HasForeignKey(ca => ca.QuestionId)
                        .OnDelete(DeleteBehavior.Restrict);
 
 
             modelBuilder.Entity<CorrectAnswer>()
                        .HasOne<Choice>(ca => ca.Choice)
-                       .WithMany(q => q.ListCorrectAnswers)
+                       .WithMany(q => q.CorrectAnswers)
                        .HasForeignKey(ca => ca.ChoiceId)
                        .OnDelete(DeleteBehavior.Restrict);
 

@@ -12,7 +12,10 @@ namespace Onlin_Exam.Entities
 
         public int QuestionId { get; set; }
         public Question Question { get; set; }
-        public IList<CorrectAnswer> ListCorrectAnswers { get; set; }
+
+        public IList<CorrectAnswer> CorrectAnswers { get; set; }
+
+        // Notes add Configuration
 
     }
 }
