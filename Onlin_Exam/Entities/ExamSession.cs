@@ -1,10 +1,10 @@
-﻿using Onlin_Exam.Models;
+﻿using Online_Exam.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Onlin_Exam.Entities
+namespace Online_Exam.Entities
 {
     public class ExamSession
     {

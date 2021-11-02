@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Onlin_Exam.Entities
+namespace Online_Exam.Entities
 {
     public class Choice
     {
@@ -12,8 +12,10 @@ namespace Onlin_Exam.Entities
 
         public int QuestionId { get; set; }
         public Question Question { get; set; }
+        public bool IsCorrectAnswer { get; set; } = false;
+        public int Score { get; set; }
 
-        public IList<CorrectAnswer> CorrectAnswers { get; set; }
+
 
         // Notes add Configuration
 

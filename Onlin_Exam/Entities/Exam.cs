@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Onlin_Exam.Entities
+namespace Online_Exam.Entities
 {
     public class Exam
     {
@@ -14,6 +14,8 @@ namespace Onlin_Exam.Entities
         public string Description { get; set; }
         public int   QuestionsCount { get; set; }
 
+        // exam consist from  same qestions
+        public int Score { get; set; }
 
         public int CategoryId { get; set; }
         public Category   Category { get; set; }

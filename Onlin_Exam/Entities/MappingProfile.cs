@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Onlin_Exam.DTO;
+using Online_Exam.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Onlin_Exam.Entities
+namespace Online_Exam.Entities
 {
     public class MappingProfile :Profile
     {
@@ -26,12 +26,12 @@ namespace Onlin_Exam.Entities
             CreateMap<Choice, AddQuestionDTO>()
                 .ReverseMap();
 
-            CreateMap<CorrectAnswer, CorrectAnswerDTO>();
+
             CreateMap<Question, AddQuestionDTO>()
              .ForMember(dest => dest.Choices, opt => opt.MapFrom(src => src.Choices))
              .ReverseMap();
-            //.ForMember(dest => dest.CorrectAnswers, opt => opt.MapFrom(src => src.CorrectAnswers))
-            //.ReverseMap();
+
+            
 
         }
     }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Onlin_Exam.Helpers;
-using Onlin_Exam.Models;
+using Online_Exam.Helpers;
+using Online_Exam.Entities;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,7 +10,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Onlin_Exam.Services
+namespace Online_Exam.Services
 {
     public class UserInfoService : IUserInfoService
     {

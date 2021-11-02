@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Onlin_Exam.DTO;
-using Onlin_Exam.Entities;
-using Onlin_Exam.Repositories;
+using Online_Exam.DTO;
+using Online_Exam.Entities;
+using Online_Exam.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-namespace Onlin_Exam.Controllers
+namespace Online_Exam.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -19,6 +19,7 @@ namespace Onlin_Exam.Controllers
         private readonly IGenericRepository<Choice> _choiceRepo;
 
         private readonly IMapper _mapper;
+        #region Constructor
         public QuestionsController(
                      IGenericRepository<Question> repository,
                      IMapper mapper,
@@ -29,7 +30,8 @@ namespace Onlin_Exam.Controllers
             _mapper = mapper;
             _choiceRepo = choiceRepo;
         }
-        // GET: api/<QuestionsController>
+        #endregion
+        #region Gets
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
@@ -45,7 +47,6 @@ namespace Onlin_Exam.Controllers
             return Ok(result);
         }
 
-        // GET api/<QuestionsController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -58,6 +59,8 @@ namespace Onlin_Exam.Controllers
                 return Ok(_mapper.Map<QuestionDTO>(question));
             }
         }
+        #endregion 
+        #region CreateQuestion
         [HttpPost("CreateQuestion")]
         public IActionResult Create([FromBody] AddQuestionDTO model)
         {
@@ -80,7 +83,7 @@ namespace Onlin_Exam.Controllers
                 throw;
             }
         }
-
+        #endregion
         #region manualMapping
         //public IActionResult Create([FromBody] AddQuestionDTO model)
         //{
@@ -125,53 +128,8 @@ namespace Onlin_Exam.Controllers
         //}
         #endregion
 
-        // POST api/<QuestionsController>
-        //[HttpPost]
-        //public IActionResult Create([FromBody] AddQuestionDTO model)
-        //{
-        //    try
-        //    {
-        //        if (model == null)
-        //        {
-        //            return BadRequest();
-        //        }
-        //        else 
-        //        {
-        //            // var obj = _mapper.Map<Question>(model);
+        #region UpdateQuestion
 
-        //            var question = new Question();
-
-        //            question.Text = model.Text;
-        //            question.Degree = model.Degree;
-        //            question.ExamId = model.ExamId;
-
-        //            var returnChoices= _questionRepo.InsertWithReturn(question);
-
-        //            var choicesList = new List<Choice>();
-        //            foreach (var c in model.Choices)
-        //            {
-        //                var choice = new Choice
-        //                {
-        //                    Id = model.Id,
-        //                    QuestionId = returnChoices.Id,
-        //                    Text = model.Text,
-        //                };
-        //                choicesList.Add(choice);
-        //            }
-
-        //            question.Choices = choicesList;
-        //           var  tt= _choiceRepo.InsertWithRange(question.Choices);
-        //            _questionRepo.Save();
-        //            return Ok(_mapper.Map<AddQuestionDTO>(question));
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw;
-        //    }
-        //}
-
-        // PUT api/<QuestionsController>/5
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] QuestionDTO model)
         {
@@ -183,7 +141,8 @@ namespace Onlin_Exam.Controllers
             _questionRepo.Save();
             return Ok(new { message = " update question success" });
         }
-
+        #endregion
+        #region DeleteQuestion
         // DELETE api/<QuestionsController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
@@ -195,5 +154,8 @@ namespace Onlin_Exam.Controllers
             _questionRepo.Save();
             return Ok();
         }
+        #endregion
+
+
     }
 }
