@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Onlin_Exam.Repositories
+namespace Online_Exam.Repositories
 {
   public  interface IGenericRepository<T> where T :class 
     {
@@ -17,6 +17,7 @@ namespace Onlin_Exam.Repositories
         void Update( T model);
         void Delete( int id);
         void Save( );
+        bool IsExists(Expression<Func<T, bool>> expression);
         T GetOne(Expression<Func<T, bool>> expression);
         IList<T> GetList(Expression<Func<T, bool>> expression);
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);

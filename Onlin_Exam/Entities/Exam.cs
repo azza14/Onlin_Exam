@@ -14,7 +14,7 @@ namespace Online_Exam.Entities
         public string Description { get; set; }
         public int   QuestionsCount { get; set; }
 
-        // exam consist from  same qestions
+        // exam consist of  same qestions
         public int Score { get; set; }
 
         public int CategoryId { get; set; }
@@ -43,7 +43,7 @@ namespace Online_Exam.Entities
                 .HasMaxLength(10)
                 .HasColumnType("int");
 
-            builder.HasOne<Category>(c => c.Category)
+            builder.HasOne(c => c.Category)
                 .WithMany(c => c.Exams)
                 .HasForeignKey(f => f.CategoryId);
         }

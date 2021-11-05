@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Onlin_Exam
+namespace Online_Exam
 {
     public class Program
     {

@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Onlin_Exam.DTO;
-using Onlin_Exam.Entities;
-using Onlin_Exam.Repositories;
+using Online_Exam.DTO;
+using Online_Exam.Entities;
+using Online_Exam.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Onlin_Exam.Controllers
+namespace Online_Exam.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -17,12 +17,16 @@ namespace Onlin_Exam.Controllers
     {
         private IGenericRepository<Category> _repository;
         private IMapper _mapper;
-        public CategoriesController(IGenericRepository<Category> repository, IMapper mapper)
+        #region Constructor
+        public CategoriesController(
+                        IGenericRepository<Category> repository, 
+                        IMapper mapper)
         {
             this._repository = repository;
             this._mapper = mapper;
         }
-
+        #endregion
+        #region Get
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -40,7 +44,8 @@ namespace Onlin_Exam.Controllers
             var result = _mapper.Map<CategoryDTO>(category);
             return Ok(result);
         }
-       
+        #endregion
+        #region CreateCategory
         [HttpPost]
         public IActionResult Create([FromBody] CategoryDTO model)
         {
@@ -62,9 +67,9 @@ namespace Onlin_Exam.Controllers
             {
                 throw;
             }
-            //return Ok( new {  message= " create category success"});
         }
-
+        #endregion
+        #region UpdateSubject
         [HttpPut("Update")]
         public IActionResult Update(int id,[FromBody] CategoryDTO model)
         {
@@ -78,16 +83,16 @@ namespace Onlin_Exam.Controllers
 
             return Ok(new  {  message= " update category success"});
         }
-
+        #endregion
+        #region DeleteCategory
         [HttpDelete("Delete")]
         public IActionResult Delete(int? id)
         {
-            //if (id == null)
-            //    return BadRequest();
-            //var category = _repository.GetById(id.Value);
             try
             {
-                _repository.Delete(id.Value);
+                if (id == null)
+                return BadRequest();
+                    _repository.Delete(id.Value);
                 _repository.Save();
                 return Ok( new { message = "delete category success" });
             }
@@ -97,5 +102,6 @@ namespace Onlin_Exam.Controllers
             }
            
         }
+        #endregion
     }
 }

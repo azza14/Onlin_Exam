@@ -11,19 +11,18 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Onlin_Exam.DBContext;
-using Onlin_Exam.Entities;
-using Onlin_Exam.Helpers;
-using Onlin_Exam.Models;
-using Onlin_Exam.Repositories;
-using Onlin_Exam.Services;
+using Online_Exam.DBContext;
+using Online_Exam.Entities;
+using Online_Exam.Helpers;
+using Online_Exam.Repositories;
+using Online_Exam.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Onlin_Exam
+namespace Online_Exam
 {
     public class Startup
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Onlin_Exam.Migrations
+namespace Online_Exam.Migrations
 {
     public partial class Init : Migration
     {

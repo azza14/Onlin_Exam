@@ -10,15 +10,15 @@ using Online_Exam.DBContext;
 namespace Online_Exam.Migrations
 {
     [DbContext(typeof(OnlineDbContext))]
-    [Migration("20211029135428_editTab")]
-    partial class editTab
+    [Migration("20211105191818_addSubjectTable")]
+    partial class addSubjectTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.10")
+                .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Online_Exam.Entities.Category", b =>
@@ -43,7 +43,13 @@ namespace Online_Exam.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("IsCorrectAnswer")
+                        .HasColumnType("bit");
+
                     b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Score")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
@@ -54,27 +60,6 @@ namespace Online_Exam.Migrations
                     b.HasIndex("QuestionId");
 
                     b.ToTable("Choices");
-                });
-
-            modelBuilder.Entity("Online_Exam.Entities.CorrectAnswer", b =>
-                {
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ChoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
-
-                    b.HasKey("QuestionId", "ChoiceId");
-
-                    b.HasIndex("ChoiceId");
-
-                    b.ToTable("CorrectAnswers");
                 });
 
             modelBuilder.Entity("Online_Exam.Entities.Exam", b =>
@@ -91,6 +76,9 @@ namespace Online_Exam.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("QuestionsCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Score")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -141,6 +129,9 @@ namespace Online_Exam.Migrations
                     b.Property<int>("Degree")
                         .HasColumnType("int");
 
+                    b.Property<int>("DifficultLevel")
+                        .HasColumnType("int");
+
                     b.Property<int>("ExamId")
                         .HasColumnType("int");
 
@@ -154,7 +145,27 @@ namespace Online_Exam.Migrations
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("Online_Exam.Models.User", b =>
+            modelBuilder.Entity("Online_Exam.Entities.Subject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Subjects");
+                });
+
+            modelBuilder.Entity("Online_Exam.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -192,25 +203,6 @@ namespace Online_Exam.Migrations
                     b.Navigation("Question");
                 });
 
-            modelBuilder.Entity("Online_Exam.Entities.CorrectAnswer", b =>
-                {
-                    b.HasOne("Online_Exam.Entities.Choice", "Choice")
-                        .WithMany("CorrectAnswers")
-                        .HasForeignKey("ChoiceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Online_Exam.Entities.Question", "Question")
-                        .WithMany("CorrectAnswers")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Choice");
-
-                    b.Navigation("Question");
-                });
-
             modelBuilder.Entity("Online_Exam.Entities.Exam", b =>
                 {
                     b.HasOne("Online_Exam.Entities.Category", "Category")
@@ -230,7 +222,7 @@ namespace Online_Exam.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Online_Exam.Models.User", "Student")
+                    b.HasOne("Online_Exam.Entities.User", "Student")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -252,14 +244,22 @@ namespace Online_Exam.Migrations
                     b.Navigation("Exam");
                 });
 
+            modelBuilder.Entity("Online_Exam.Entities.Subject", b =>
+                {
+                    b.HasOne("Online_Exam.Entities.Category", "Category")
+                        .WithMany("Subjects")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("Online_Exam.Entities.Category", b =>
                 {
                     b.Navigation("Exams");
-                });
 
-            modelBuilder.Entity("Online_Exam.Entities.Choice", b =>
-                {
-                    b.Navigation("CorrectAnswers");
+                    b.Navigation("Subjects");
                 });
 
             modelBuilder.Entity("Online_Exam.Entities.Exam", b =>
@@ -270,8 +270,6 @@ namespace Online_Exam.Migrations
             modelBuilder.Entity("Online_Exam.Entities.Question", b =>
                 {
                     b.Navigation("Choices");
-
-                    b.Navigation("CorrectAnswers");
                 });
 #pragma warning restore 612, 618
         }

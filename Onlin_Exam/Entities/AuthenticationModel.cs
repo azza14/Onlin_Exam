@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Onlin_Exam.Entities
+namespace Online_Exam.Entities
 {
     public class AuthenticationModel
     {

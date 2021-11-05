@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Online_Exam.Helpers
+namespace Online_Exam.DTO
 {
-    public class AppSettings
+    public class SubjectDTO
     {
-        public string Secret { get; set; }
+        public string Name { get; set; }
     }
 }

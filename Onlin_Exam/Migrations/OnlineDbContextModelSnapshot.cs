@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Onlin_Exam.DBContext;
+using Online_Exam.DBContext;
 
-namespace Onlin_Exam.Migrations
+namespace Online_Exam.Migrations
 {
     [DbContext(typeof(OnlineDbContext))]
     partial class OnlineDbContextModelSnapshot : ModelSnapshot
@@ -16,10 +16,10 @@ namespace Onlin_Exam.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.10")
+                .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Onlin_Exam.Entities.Category", b =>
+            modelBuilder.Entity("Online_Exam.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,14 +34,20 @@ namespace Onlin_Exam.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Onlin_Exam.Entities.Choice", b =>
+            modelBuilder.Entity("Online_Exam.Entities.Choice", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("IsCorrectAnswer")
+                        .HasColumnType("bit");
+
                     b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Score")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
@@ -54,28 +60,7 @@ namespace Onlin_Exam.Migrations
                     b.ToTable("Choices");
                 });
 
-            modelBuilder.Entity("Onlin_Exam.Entities.CorrectAnswer", b =>
-                {
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ChoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
-
-                    b.HasKey("QuestionId", "ChoiceId");
-
-                    b.HasIndex("ChoiceId");
-
-                    b.ToTable("CorrectAnswers");
-                });
-
-            modelBuilder.Entity("Onlin_Exam.Entities.Exam", b =>
+            modelBuilder.Entity("Online_Exam.Entities.Exam", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -91,6 +76,9 @@ namespace Onlin_Exam.Migrations
                     b.Property<int>("QuestionsCount")
                         .HasColumnType("int");
 
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -101,7 +89,7 @@ namespace Onlin_Exam.Migrations
                     b.ToTable("Exams");
                 });
 
-            modelBuilder.Entity("Onlin_Exam.Entities.ExamSession", b =>
+            modelBuilder.Entity("Online_Exam.Entities.ExamSession", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -129,7 +117,7 @@ namespace Onlin_Exam.Migrations
                     b.ToTable("ExamSessions");
                 });
 
-            modelBuilder.Entity("Onlin_Exam.Entities.Question", b =>
+            modelBuilder.Entity("Online_Exam.Entities.Question", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -137,6 +125,9 @@ namespace Onlin_Exam.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Degree")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DifficultLevel")
                         .HasColumnType("int");
 
                     b.Property<int>("ExamId")
@@ -152,7 +143,27 @@ namespace Onlin_Exam.Migrations
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("Onlin_Exam.Models.User", b =>
+            modelBuilder.Entity("Online_Exam.Entities.Subject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Subjects");
+                });
+
+            modelBuilder.Entity("Online_Exam.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -179,9 +190,9 @@ namespace Onlin_Exam.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Onlin_Exam.Entities.Choice", b =>
+            modelBuilder.Entity("Online_Exam.Entities.Choice", b =>
                 {
-                    b.HasOne("Onlin_Exam.Entities.Question", "Question")
+                    b.HasOne("Online_Exam.Entities.Question", "Question")
                         .WithMany("Choices")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -190,28 +201,9 @@ namespace Onlin_Exam.Migrations
                     b.Navigation("Question");
                 });
 
-            modelBuilder.Entity("Onlin_Exam.Entities.CorrectAnswer", b =>
+            modelBuilder.Entity("Online_Exam.Entities.Exam", b =>
                 {
-                    b.HasOne("Onlin_Exam.Entities.Choice", "Choice")
-                        .WithMany("CorrectAnswers")
-                        .HasForeignKey("ChoiceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Onlin_Exam.Entities.Question", "Question")
-                        .WithMany("CorrectAnswers")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Choice");
-
-                    b.Navigation("Question");
-                });
-
-            modelBuilder.Entity("Onlin_Exam.Entities.Exam", b =>
-                {
-                    b.HasOne("Onlin_Exam.Entities.Category", "Category")
+                    b.HasOne("Online_Exam.Entities.Category", "Category")
                         .WithMany("Exams")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -220,15 +212,15 @@ namespace Onlin_Exam.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Onlin_Exam.Entities.ExamSession", b =>
+            modelBuilder.Entity("Online_Exam.Entities.ExamSession", b =>
                 {
-                    b.HasOne("Onlin_Exam.Entities.Exam", "Exam")
+                    b.HasOne("Online_Exam.Entities.Exam", "Exam")
                         .WithMany()
                         .HasForeignKey("ExamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Onlin_Exam.Models.User", "Student")
+                    b.HasOne("Online_Exam.Entities.User", "Student")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -239,9 +231,9 @@ namespace Onlin_Exam.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("Onlin_Exam.Entities.Question", b =>
+            modelBuilder.Entity("Online_Exam.Entities.Question", b =>
                 {
-                    b.HasOne("Onlin_Exam.Entities.Exam", "Exam")
+                    b.HasOne("Online_Exam.Entities.Exam", "Exam")
                         .WithMany("Questions")
                         .HasForeignKey("ExamId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -250,26 +242,32 @@ namespace Onlin_Exam.Migrations
                     b.Navigation("Exam");
                 });
 
-            modelBuilder.Entity("Onlin_Exam.Entities.Category", b =>
+            modelBuilder.Entity("Online_Exam.Entities.Subject", b =>
+                {
+                    b.HasOne("Online_Exam.Entities.Category", "Category")
+                        .WithMany("Subjects")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Online_Exam.Entities.Category", b =>
                 {
                     b.Navigation("Exams");
+
+                    b.Navigation("Subjects");
                 });
 
-            modelBuilder.Entity("Onlin_Exam.Entities.Choice", b =>
-                {
-                    b.Navigation("CorrectAnswers");
-                });
-
-            modelBuilder.Entity("Onlin_Exam.Entities.Exam", b =>
+            modelBuilder.Entity("Online_Exam.Entities.Exam", b =>
                 {
                     b.Navigation("Questions");
                 });
 
-            modelBuilder.Entity("Onlin_Exam.Entities.Question", b =>
+            modelBuilder.Entity("Online_Exam.Entities.Question", b =>
                 {
                     b.Navigation("Choices");
-
-                    b.Navigation("CorrectAnswers");
                 });
 #pragma warning restore 612, 618
         }

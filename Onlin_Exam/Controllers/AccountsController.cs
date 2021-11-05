@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Onlin_Exam.Models;
-using Onlin_Exam.Repositories;
-using Onlin_Exam.DTO;
+using Online_Exam.Entities;
+using Online_Exam.Repositories;
+using Online_Exam.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 //Add-Migration InitialCreate -Context OnlineDbContext -OutputDir Data\SqlServerMigrations
 
-namespace Onlin_Exam.Controllers
+namespace Online_Exam.Controllers
 {
 
     [Route("api/[controller]")]

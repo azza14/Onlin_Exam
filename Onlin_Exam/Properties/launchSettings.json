@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Onlin_Exam": {
+    "Online_Exam": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",

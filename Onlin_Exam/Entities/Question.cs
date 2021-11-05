@@ -20,8 +20,6 @@ namespace Online_Exam.Entities
 
         public List<Choice> Choices { get; set; }
 
-       // public List<CorrectAnswer> CorrectAnswers { get; set; }
-        ///Notes Add Configurations
         public class QuestionEntityConfiguration : IEntityTypeConfiguration<Question>
         {
             public void Configure(EntityTypeBuilder<Question> builder)
@@ -36,7 +34,8 @@ namespace Online_Exam.Entities
                     .IsRequired()
                     .HasMaxLength(10)
                     .HasColumnType("int");
-                builder.HasOne<Exam>(c => c.Exam)
+
+                builder.HasOne(c => c.Exam)
                 .WithMany(c => c.Questions)
                 .HasForeignKey(f => f.ExamId);
             }

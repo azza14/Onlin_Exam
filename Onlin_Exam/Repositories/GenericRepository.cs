@@ -1,20 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Onlin_Exam.DBContext;
-using Onlin_Exam.Models;
+using Online_Exam.DBContext;
+using Online_Exam.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Onlin_Exam.Repositories
+namespace Online_Exam.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         private OnlineDbContext _context;
         private DbSet<T> table = null;
-        // private GenericRepository<T> repository;
-
         public GenericRepository(GenericRepository<T> repository)
         {
             _context = new OnlineDbContext();
@@ -47,8 +45,6 @@ namespace Onlin_Exam.Repositories
             }
             return query;
         }
-
-
         public T GetById(int id)
         {
             return table.Find(id);
@@ -101,21 +97,9 @@ namespace Onlin_Exam.Repositories
         {
             return this._context.Set<T>().Where(expression).ToList();
         }
-
-       
-
-        //search params   
-        //public List<T> GetList<T>(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includes) where T : class
-        //{
-        //    var query = _db.Set<T>().AsNoTracking();
-        //    foreach (var include in includes)
-        //        query = query.Include(include);
-        //    return query.Where(where).ToList();
-        //}
-        //public List<T> GetList<T>(Expression<Func<T, bool>> where, params string[] includes) where T : class
-        //{
-        //    var query = _db.Set<T>().AsNoTracking();
-        //    foreach (var include in includ
-        //}
+        public bool IsExists( Expression<Func<T, bool>> expression)
+        {
+            return _context.Set<T>().Any(expression);
+        }
     }
 }
