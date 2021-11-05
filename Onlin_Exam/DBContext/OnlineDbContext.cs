@@ -19,32 +19,14 @@ namespace Online_Exam.DBContext
         public DbSet<Exam> Exams { get; set; }
         public DbSet<ExamSession> ExamSessions { get; set; }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-
-        //    modelBuilder.Entity<CorrectAnswer>()
-        //        .HasKey(ca => new { ca.QuestionId, ca.ChoiceId });
-
-        //    modelBuilder.Entity<CorrectAnswer>()
-        //                .HasOne<Question>(ca => ca.Question)
-        //                .WithMany(q => q.CorrectAnswers)
-        //               .HasForeignKey(ca => ca.QuestionId)
-        //               .OnDelete(DeleteBehavior.Restrict);
-
-
-        //    modelBuilder.Entity<CorrectAnswer>()
-        //               .HasOne<Choice>(ca => ca.Choice)
-        //               .WithMany(q => q.CorrectAnswers)
-        //               .HasForeignKey(ca => ca.ChoiceId)
-        //               .OnDelete(DeleteBehavior.Restrict);
-
-        //    //modelBuilder.Entity<CorrectAnswer>()
-        //    //    .HasMany(i => i.Question)
-        //    //    .WithRequired()
-        //    //    .WillCascadeOnDelete(false);
-
-        //    //    modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
-        //    //    modelBuilder.ApplyConfiguration(new ExamEntityConfiguration());
-        //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new SubjectEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new ExamEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new QuestionEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new ChoiceEntityConfiguration());
+        }
     }
 }

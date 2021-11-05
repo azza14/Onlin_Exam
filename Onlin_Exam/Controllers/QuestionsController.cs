@@ -128,7 +128,6 @@ namespace Online_Exam.Controllers
         #endregion
 
         #region UpdateQuestion
-
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] QuestionDTO model)
         {

@@ -19,9 +19,10 @@ namespace Online_Exam.Entities
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
+            builder.HasKey(c => c.Id);
+
             builder.Property(c => c.Id)
                 .HasColumnType("int")
-                .HasColumnName("Id")
                 .IsRequired()
                 .ValueGeneratedOnAdd();
 

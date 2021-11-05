@@ -16,9 +16,10 @@ namespace Online_Exam.Entities
         public int DifficultLevel { get; set; }
 
         public int ExamId { get; set; }
-        public Exam  Exam{ get; set; }
+        public Exam Exam { get; set; }
 
         public List<Choice> Choices { get; set; }
+    }
 
         public class QuestionEntityConfiguration : IEntityTypeConfiguration<Question>
         {
@@ -42,4 +43,3 @@ namespace Online_Exam.Entities
         }
 
     }
-}
