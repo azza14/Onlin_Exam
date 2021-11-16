@@ -17,8 +17,6 @@ namespace Online_Exam.Controllers
     [ApiController]
     public class SubjectsController : ControllerBase
     {
-        private readonly OnlineDbContext _context;
-
         private IGenericRepository<Subject> _repository;
         private IMapper _mapper;
         #region Constructor

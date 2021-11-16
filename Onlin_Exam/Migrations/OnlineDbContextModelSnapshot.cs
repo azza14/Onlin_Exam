@@ -186,7 +186,7 @@ namespace Online_Exam.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(60)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnName("email");
 
                     b.Property<string>("Password")
@@ -195,13 +195,13 @@ namespace Online_Exam.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("userName");
-
-                    b.Property<string>("UserType")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Online_Exam.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,19 +14,20 @@ namespace Online_Exam.Entities
     {
         [Key]
         public int Id { get; set; }
-
         public string UserName { get; set; }
-        public string  Email { get; set; }
-        public string UserType { get; set; }
+
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+        public Role  Role { get; set; }
         public string Password { get; set; }
-        
-        //public string ConfirmPassword { get; set; }
         public string Phone { get; set; }
+        [NotMapped]
+        public string Token { get; set; }
 
     }
     public class UserEntityConfiguration : IEntityTypeConfiguration<User>
     {
-        public UserEntityConfiguration(){ }
+        public UserEntityConfiguration() { }
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(u => u.Id);
@@ -33,11 +35,11 @@ namespace Online_Exam.Entities
             builder.Property(u => u.UserName)
                 .HasColumnName("userName")
                 .HasColumnType("nvarchar(50)")
-                .IsRequired() ;
+                .IsRequired();
 
             builder.Property(e => e.Email)
                 .HasColumnName("email")
-                .HasColumnType("nvarchar(60)")
+                .HasColumnType("nvarchar(50)")
                 .IsRequired();
         }
     }

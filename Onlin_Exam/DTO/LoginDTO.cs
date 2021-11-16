@@ -8,12 +8,11 @@ namespace Online_Exam.DTO
 {
     public class LoginDTO
     {
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "User Name is required")]
+        public string Username { get; set; }
+
+        [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
     }
 }

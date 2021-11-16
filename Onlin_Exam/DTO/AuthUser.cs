@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Online_Exam.Services
+namespace Online_Exam.DTO
 {
-    public interface IUserInfoService
+    public class AuthUser
     {
-        UserInfo Authenticate(string userName, string password);
+        public User User { get; set; }
+        public string Token { get; set; }
     }
 }

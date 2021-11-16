@@ -11,7 +11,10 @@ namespace Online_Exam.Entities
     {
         public MappingProfile()
         {
+            CreateMap<RegisterDTO, User>().ReverseMap();
             CreateMap<CategoryDTO, Category>().ReverseMap();
+
+            CreateMap<SubjectDTO, Subject>().ReverseMap();
 
             CreateMap<Exam, ExamDTO>()
                 .ForMember(dest => dest.Questions, opt => opt.MapFrom(src => src.Questions))
