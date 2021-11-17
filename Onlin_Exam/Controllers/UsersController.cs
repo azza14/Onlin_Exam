@@ -10,15 +10,15 @@ using Online_Exam.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using AuthorizeAttribute = Microsoft.AspNetCore.Authorization.AuthorizeAttribute;
+using Online_Exam.CustomAuth;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Online_Exam.Controllers
 {
    // [Authorization.Authorize]
     [Route("api/[controller]")]
-  //  [ApiController]
+    [ApiController]
     public class UsersController : ControllerBase
     {
         private IJwtUtils _userInfoService;
@@ -36,7 +36,8 @@ namespace Online_Exam.Controllers
         }
 
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = ("SuperAdmin"))]
+       // [CustmeAuthorizeAttribute(Role.Admin)]
+         [Authorize(Roles = ("Admin"))]
         [HttpGet("GetUsers")]
         public IActionResult GetAll()
         {
@@ -65,10 +66,9 @@ namespace Online_Exam.Controllers
                     _repoUser.Save();
                     var token = _userInfoService.CreateToken(user);
 
-                    return Ok(new Response
+                    return Ok(new AuthUser
                     {
-                        Message = "User Register successfully",
-                        Status = "succes",
+                        User = user,
                         Token = token
                     });
                 }

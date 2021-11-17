@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Online_Exam.Authorization
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
-    public class AuthorizeAttribute : Attribute, IAuthorizationFilter
+    //[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
+    public class CustmeAuthorizeAttribute : Attribute, IAuthorizationFilter
     {
         private readonly IList<Role> __roles;
-        public AuthorizeAttribute(params Role[] roles)
+        public CustmeAuthorizeAttribute(params Role[] roles)
         {
             __roles = roles ?? new Role[] { };
         }

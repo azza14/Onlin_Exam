@@ -12,7 +12,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Online_Exam.Authorization;
-using Online_Exam.CutomAuthorize;
+using Online_Exam.CustomAuth;
 using Online_Exam.DBContext;
 using Online_Exam.Entities;
 using Online_Exam.Extensions;
@@ -39,6 +39,7 @@ namespace Online_Exam
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
             services.AddDbContext<OnlineDbContext>(options =>
                                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -94,7 +95,6 @@ namespace Online_Exam
             });
             #endregion
 
-            services.AddControllers();
 
         }
 
@@ -115,13 +115,13 @@ namespace Online_Exam
 
             app.UseRouting();
             // global cors policy
-            app.UseCors(x =>x
+            app.UseCors(x => x
                         .AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader());
-            // authorize
-           app.UseAuthentication();
-           app.UseAuthorization();
+
+            app.UseAuthentication(); // this one first
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -133,6 +133,7 @@ namespace Online_Exam
             // use localization
             var localizeOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(localizeOptions.Value);
+
 
 
 

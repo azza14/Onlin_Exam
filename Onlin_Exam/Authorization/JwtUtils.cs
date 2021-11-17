@@ -10,6 +10,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Online_Exam.DBContext;
+using Microsoft.Extensions.Configuration;
 
 namespace Online_Exam.Authorization
 
@@ -18,30 +19,49 @@ namespace Online_Exam.Authorization
     {
 
         private readonly AppSettings _appSetting;
-        public JwtUtils(IOptions<AppSettings> appSettings )
+        private readonly IConfiguration _configuration;
+        public JwtUtils(IOptions<AppSettings> appSettings, IConfiguration configuration)
         {
             _appSetting = appSettings.Value;
+            _configuration = configuration;
         }
         public string CreateToken( User user)
         {
 
-            var tokenHandeler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("Logging:Tokens:Key");//_appSetting.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor()
+            //var tokenHandeler = new JwtSecurityTokenHandler();
+            //var key = Encoding.ASCII.GetBytes("Logging:Tokens:Key");//_appSetting.Secret);
+            //var tokenDescriptor = new SecurityTokenDescriptor()
+            //{
+            //    Subject = new ClaimsIdentity(new Claim[]
+            //    {
+            //        new Claim(ClaimTypes.Name, user.Id.ToString()),
+            //        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            //        new Claim("Roles", user.Role.ToString()),
+            //    }),
+            //    Expires = DateTime.UtcNow.AddDays(7),
+            //    SigningCredentials=  new SigningCredentials(
+            //                              new SymmetricSecurityKey(key),
+            //                              SecurityAlgorithms.HmacSha256Signature)
+            //};
+            //var token = tokenHandeler.CreateToken(tokenDescriptor);
+            //return tokenHandeler.WriteToken(token);
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:key"]);
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
+                Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString()),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim("Roles", user.Role.ToString()),
+                    new Claim("id", user.Id.ToString()),
+                    new Claim("userName", user.UserName),
+                     new Claim("role", user.Role.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials=  new SigningCredentials(
-                                          new SymmetricSecurityKey(key),
-                                          SecurityAlgorithms.HmacSha256Signature)
+                Issuer = _configuration["Jwt:Issuer"],
+                Audience = _configuration["Jwt:Audience"],
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-            var token = tokenHandeler.CreateToken(tokenDescriptor);
-            return tokenHandeler.WriteToken(token);
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
 
         public int? ValidateToken(string token)

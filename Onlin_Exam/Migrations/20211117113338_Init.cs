@@ -28,7 +28,7 @@ namespace Online_Exam.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     userName = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     email = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    UserType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<int>(type: "int", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },

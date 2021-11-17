@@ -21,8 +21,8 @@ namespace Online_Exam.Entities
         public Role  Role { get; set; }
         public string Password { get; set; }
         public string Phone { get; set; }
-        [NotMapped]
-        public string Token { get; set; }
+       // [NotMapped]
+       // public string Token { get; set; }
 
     }
     public class UserEntityConfiguration : IEntityTypeConfiguration<User>

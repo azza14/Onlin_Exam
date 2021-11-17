@@ -18,7 +18,7 @@ namespace Online_Exam.DTO
 
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
-        public Role Roles { get; set; }
+        public Role Role { get; set; }
 
         public string Phone { get; set; }
     }

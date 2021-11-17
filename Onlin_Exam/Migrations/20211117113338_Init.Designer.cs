@@ -10,8 +10,8 @@ using Online_Exam.DBContext;
 namespace Online_Exam.Migrations
 {
     [DbContext(typeof(OnlineDbContext))]
-    [Migration("20211114101355_editRoleattribute")]
-    partial class editRoleattribute
+    [Migration("20211117113338_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
