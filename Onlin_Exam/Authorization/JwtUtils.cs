@@ -28,32 +28,16 @@ namespace Online_Exam.Authorization
         public string CreateToken( User user)
         {
 
-            //var tokenHandeler = new JwtSecurityTokenHandler();
-            //var key = Encoding.ASCII.GetBytes("Logging:Tokens:Key");//_appSetting.Secret);
-            //var tokenDescriptor = new SecurityTokenDescriptor()
-            //{
-            //    Subject = new ClaimsIdentity(new Claim[]
-            //    {
-            //        new Claim(ClaimTypes.Name, user.Id.ToString()),
-            //        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            //        new Claim("Roles", user.Role.ToString()),
-            //    }),
-            //    Expires = DateTime.UtcNow.AddDays(7),
-            //    SigningCredentials=  new SigningCredentials(
-            //                              new SymmetricSecurityKey(key),
-            //                              SecurityAlgorithms.HmacSha256Signature)
-            //};
-            //var token = tokenHandeler.CreateToken(tokenDescriptor);
-            //return tokenHandeler.WriteToken(token);
+            
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:key"]);
+            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:key"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim("id", user.Id.ToString()),
                     new Claim("userName", user.UserName),
-                     new Claim("role", user.Role.ToString())
+                    new Claim("role", user.Role.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 Issuer = _configuration["Jwt:Issuer"],
@@ -63,14 +47,13 @@ namespace Online_Exam.Authorization
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
-
         public int? ValidateToken(string token)
         {
             if (token == null)
                 return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("Logging:Tokens:Key");//_appSettings.Secret);
+            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:key"]);//_appSettings.Secret);
             try
             {
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
@@ -89,10 +72,10 @@ namespace Online_Exam.Authorization
                 // return user id from JWT token if validation successful
                 return userId;
             }
-            catch
+            catch (Exception ex)
             {
-                // return null if validation fails
-                return null;
+                Console.WriteLine(ex.Message);
+                return null; 
             }
         }
     }

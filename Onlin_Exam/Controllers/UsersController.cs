@@ -12,11 +12,11 @@ using System.Collections.Generic;
 using System.Linq;
 using AuthorizeAttribute = Microsoft.AspNetCore.Authorization.AuthorizeAttribute;
 using Online_Exam.CustomAuth;
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
 
 namespace Online_Exam.Controllers
 {
-   // [Authorization.Authorize]
+    //[Authorization.CustmeAuthorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -35,22 +35,27 @@ namespace Online_Exam.Controllers
             _repoUser = repository;
         }
 
-
-       // [CustmeAuthorizeAttribute(Role.Admin)]
-         [Authorize(Roles = ("Admin"))]
+        [CustomAuthorize(Role.Admin)]
         [HttpGet("GetUsers")]
         public IActionResult GetAll()
         {
             var userList = _repoUser.GetAll();
             return Ok(userList);
         }
-        [HttpGet("{id}")]
-        public User GetById(int id)
+
+        [HttpGet("{id:int}")]
+        public IActionResult GetById(int id)
         {
+            // only admins can access other user records
+            var currentUser = (User)HttpContext.Items["User"];
+            if (id != currentUser.Id && currentUser.Role != Role.Admin)
+                return Unauthorized(new {  message = "Unauthorized" });
+
             var user = _repoUser.GetById(id);
             if (user == null) 
                 throw new KeyNotFoundException("User not found");
-            return user;
+
+            return Ok(user);
         }
 
         [HttpPost("Register")]
@@ -87,7 +92,8 @@ namespace Online_Exam.Controllers
 
             }
         }
-        [Authorization.AllowAnonymous]
+       
+      
         [HttpPost]
         [Route("Login")]
         public IActionResult Login(LoginDTO model)
@@ -100,11 +106,7 @@ namespace Online_Exam.Controllers
                 throw new AppException("Username or password is incorrect");
              var token=   _userInfoService.CreateToken(user);
              
-            return  Ok(new AuthUser
-            {
-                User= user,
-                Token = token
-            });
+            return  Ok( new AuthUser { User= user, Token = token});
         }
 
         [HttpPost]
@@ -138,8 +140,30 @@ namespace Online_Exam.Controllers
             }
             return Ok();
         }
+       
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] UserDTO model)
+        {
+            var user = _repoUser.GetById(id);
+            if (user == null)
+                return NotFound();
+            var editUser= _mapper.Map(model, user);
+            _repoUser.Update(editUser);
+            _repoUser.Save();
+            return Ok(new { message = " update User success" });
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var Exam = _repoUser.GetById(id);
+            if (Exam == null)
+                return NotFound();
+            _repoUser.Delete(id);
+            _repoUser.Save();
+            return Ok(new { message = " delete User success" });
+        }
 
 
-        
     }
 }
