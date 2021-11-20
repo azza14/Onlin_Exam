@@ -53,7 +53,7 @@ namespace Online_Exam.Authorization
                 return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:key"]);//_appSettings.Secret);
+            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:key"]);
             try
             {
                 tokenHandler.ValidateToken(token, new TokenValidationParameters

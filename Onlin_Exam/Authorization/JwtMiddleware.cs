@@ -22,14 +22,21 @@ namespace Online_Exam.Authorization
      
         public async Task Invoke (HttpContext context,IJwtUtils jwtUtils, IGenericRepository<User> _repoUser)
         {
-            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var userId = jwtUtils.ValidateToken(token);
-
-            if (userId != null)
+            try
             {
-                context.Items["User"] =_repoUser.GetById(userId.Value) ;
+                var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+                var userId = jwtUtils.ValidateToken(token);
+
+                if (userId != null)
+                {
+                    context.Items["User"] = _repoUser.GetById(userId.Value);
+                }
+                await _next(context);
             }
-            await _next(context);
+            catch (Exception ex )
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     
     }

@@ -39,19 +39,22 @@ namespace Online_Exam
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+           // services.AddControllers();
             services.AddDbContext<OnlineDbContext>(options =>
-                                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                                    options.UseSqlServer(
+                                    Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddCors();
             services.AddControllers().AddJsonOptions(x =>
             {
                 x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
+            // configure strongly typed settings object
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             // configure DI for application services
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IJwtUtils, JwtUtils>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             // Auto Mapper Configurations
             var mapperConfig = new AutoMapper.MapperConfiguration(mc =>
@@ -68,7 +71,7 @@ namespace Online_Exam
                 c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             });
 
-            CustomAuthentication.AddCustomAuthentication(services,Configuration);
+        //    CustomAuthentication.AddCustomAuthentication(services,Configuration);
 
 
             #region Localizations
@@ -94,13 +97,7 @@ namespace Online_Exam
                 options.ConstraintMap.Add("culture", typeof(LanguageRouteConstraint));
             });
             #endregion
-
-
         }
-
-       
-
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -120,8 +117,11 @@ namespace Online_Exam
                         .AllowAnyMethod()
                         .AllowAnyHeader());
 
-            app.UseAuthentication(); // this one first
-            app.UseAuthorization();
+           app.UseAuthorization();
+
+            // custom jwt auth middleware
+            app.UseMiddleware<JwtMiddleware>();
+
 
             app.UseEndpoints(endpoints =>
             {

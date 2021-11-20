@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Online_Exam.Helpers
 {
-    public class ErrorHandler
+    public class ErrorHandlerMiddleware
     {
         private readonly RequestDelegate _next;
-        public ErrorHandler(RequestDelegate next)
+        public ErrorHandlerMiddleware(RequestDelegate next)
         {
             _next = next;
         }
