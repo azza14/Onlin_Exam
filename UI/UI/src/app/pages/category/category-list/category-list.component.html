@@ -1,0 +1,41 @@
+
+<app-sidebar></app-sidebar>
+
+<div class="mode-content">
+  <div class="container mt-5">
+      <div class="row">
+        <button type="button" class="btn btn-info  "> 
+           <i class="fas fa-file pr-2" aria-hidden="true"></i></button>
+       <table   class="table table-striped table-hover table-bordered">
+         <thead class=" ">
+           <tr class="text-center">
+               <th> # </th>
+               <th> Name <i class="fa fa-sort"></i></th>
+                <th>action</th>
+           </tr>
+       </thead>
+           <!-- <tr *ngFor="let item of categoryList; let i = index" class="text-center"> --> 
+             <tr>
+              <!-- <td> {{i}}</td>
+              <td>{{item.name}}</td> -->
+              <td>sdgvhjgshjs</td>
+              <td>sagvjhgxzhj</td>
+              <td>
+                <a class="btn btn-info" [routerLink]="['/edit',item.id]"> 
+                   <i class="fas fa-pencil pr-2" aria-hidden="true"></i></a>
+               <span></span>
+               <a class="btn btn-danger" (click)="deleteTask(item.id)"> 
+                 <i class="fas fa-trash" aria-hidden="true"></i>
+               </a>
+            </td>
+           
+           </tr>
+       </table>
+  
+  
+      </div>
+    
+
+    </div>
+
+</div>

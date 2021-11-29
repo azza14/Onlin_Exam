@@ -1,0 +1,299 @@
+<app-sidebar></app-sidebar>
+
+<div class="mode-content">
+  <div class="container-fluid mt-5">
+
+    <form class="form-horizontal">
+      <div class="row">
+        <div class="col-md-10 col-sm-12">
+          <div class="row">
+            <div class="form-group input-group">
+              <label for="password" class="col-md-2 control-label">Employee Code</label>
+              <div class="col-md-10 input-group">
+                <input type="text" id="employeeCode" class="form-control" />
+                
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group input-group">
+              <label for="employeeName" class="col-md-2 control-label">Employee Name</label>
+              <div class="col-md-10 input-group">
+                <input type="text" id="employeeCode" class="form-control" />
+                
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group input-group">
+              <label for="employeeName" class="col-md-2 control-label">Notes</label>
+              <div class="col-md-10">
+                <textarea id="notes" class="form-control"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-12 text-center">
+          <div class="form-group">
+
+            <label class="select-image">
+              <input type="file" (change)="chooseImage($event)">
+              <img src="./assets/images/user.jpeg" alt="" id="output">
+            </label>
+            
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 mb-4">
+          <button type="button" class="btn btn-primary  mr-2">
+            <i class="fas fa-file pr-2" aria-hidden="true"></i>New
+          </button>
+          <button type="button" class="btn btn-success  mr-2">
+            <i class="fas fa-save pr-2" aria-hidden="true"></i>Save
+          </button>
+          <button type="button" class="btn btn-info   mr-2">
+            <i class="fas fa-pencil pr-2" aria-hidden="true"></i>Edit
+          </button>
+          <button type="button" class="btn btn-warning  mr-2">
+            <i class="fas fa-search pr-2" aria-hidden="true"></i>Search
+          </button>
+        </div>
+      </div>
+    </form>
+  
+  <div>
+    <fieldset class="border p-3">
+      <legend class="w-auto">National ID Data</legend>
+      <div class="row">
+        <div class="form-group col-md-6  col-sm-12">
+          <div class="form-group input-group">
+            <label for="nationalId " class="col-form-label control-label col-md-4">National ID
+            </label>
+            <input type="text" class="form-control col-md-8" id="companyId" />
+          </div>
+        </div>
+        <div class="form-group col-md-6  col-sm-12">
+          <div class="form-group input-group">
+            <label for="nationalIdType" class="col-form-label control-label col-md-4">National ID Type
+            </label>
+            <select class="form-control custom-select">
+              <option selected>Choose...</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-6  col-sm-12">
+          <div class="form-group input-group">
+            <label for="nationalId " class="col-form-label control-label col-md-4">National ID Start Date
+            </label>
+            <input type="date" class="form-control col-md-8" id="companyId" />
+          </div>
+        </div>
+        <div class="form-group col-md-6  col-sm-12">
+          <div class="form-group input-group">
+            <label for="nationalIdType" class="col-form-label control-label col-md-4">National ID End Date
+            </label>
+            <input type="date" class="form-control col-md-8" id="nationalIdType" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6 col-lg-6  col-sm-12">
+          <div class="form-group input-group">
+            <label for="gender " class="col-form-label control-label col-md-4">Gender</label>
+            <select class="form-control custom-select">
+              <option selected>Choose...</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group col-md-6  col-sm-12">
+          <div class="form-group input-group">
+            <label for="region" class="col-form-label control-label col-md-4">Region
+            </label>
+            <select class="form-control custom-select">
+              <option selected>Choose...</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-12  col-sm-12">
+          <div class="form-group input-group">
+            <label for="nationalId " class="col-form-label control-label col-md-2">National Id Place of Issuance
+            </label>
+            <input type="text" class="form-control col-md-10" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-12  col-sm-12">
+          <div class="form-group input-group">
+            <label for="nationalId " class="col-form-label control-label col-md-2">National Id Address
+            </label>
+            <input type="text" class="form-control col-md-10" />
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <div>
+    <fieldset class="border p-3">
+      <legend class="w-auto">Birth Information</legend>
+      <div class="row">
+        <div class="form-group col-md-12  col-sm-12">
+          <div class="form-group input-group">
+            <label for="nationalId " class="col-form-label control-label col-md-2">Birth Date
+            </label>
+            <input type="date" class="form-control col-md-10" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-12  col-sm-12">
+          <div class="form-group input-group">
+            <label for="nationalId " class="col-form-label control-label col-md-2">Birth Place
+            </label>
+            <input type="text" class="form-control col-md-10" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-6 col-lg-6  col-sm-12">
+          <div class="form-group input-group">
+            <label for="gender " class="col-form-label control-label col-md-4">Social Status</label>
+            <select class="form-control custom-select">
+              <option selected>Choose...</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group col-md-6  col-sm-12">
+          <div class="form-group input-group">
+            <label for="region" class="col-form-label control-label col-md-4">Blood Type
+            </label>
+            <select class="form-control custom-select">
+              <option selected>Choose...</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6  col-sm-12">
+      <fieldset class="border p-3">
+        <legend class="w-auto">Education</legend>
+        <div class="row">
+          <div class="form-group col-md-12  col-sm-12">
+            <div class="form-group input-group">
+              <label for="nationalId " class="col-form-label control-label col-md-4">Educational Qualification
+              </label>
+              <input type="text" class="form-control col-md-8" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-12  col-sm-12">
+            <div class="form-group input-group">
+              <label for="nationalId " class="col-form-label control-label col-md-4"> Study Year
+              </label>
+              <input type="text" class="form-control col-md-8" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-12  col-sm-12">
+            <div class="form-group input-group">
+              <label for="nationalId " class="col-form-label control-label col-md-4">Graduation Year
+              </label>
+              <input type="text" class="form-control col-md-8" />
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="row">
+          <div class="form-group col-md-12  col-sm-12">
+            <div class="form-group input-group">
+              <label for="nationalId " class="col-form-label control-label col-md-4">University Name
+              </label>
+              <input type="text" class="form-control col-md-8" />
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <div class="col-md-6  col-sm-12">
+      <fieldset class="border p-3">
+        <legend class="w-auto">Contact Address</legend>
+
+        <div class="row">
+          <div class="form-group col-md-6 col-lg-6  col-sm-12">
+            <div class="form-group input-group">
+              <label class="control-label col-md-4">Mobile 1</label>
+              <input type="text" class="form-control col-md-8" />
+            </div>
+          </div>
+          <div class="form-group col-md-6  col-sm-12">
+            <div class="form-group input-group">
+              <label class="control-label col-md-4">Mobile 2 </label>
+              <input type="text" class="form-control col-md-8" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-6 col-lg-6  col-sm-12">
+            <div class="form-group input-group">
+              <label class="control-label col-md-4">Mobile 3</label>
+              <input type="text" class="form-control col-md-8" />
+            </div>
+          </div>
+          <div class="form-group col-md-6  col-sm-12">
+            <div class="form-group input-group">
+              <label class="control-label col-md-4">Email </label>
+              <input type="text" class="form-control col-md-8" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-12  col-sm-12">
+            <div class="form-group input-group">
+              <label for="nationalId " class="col-form-label control-label col-md-2">Address
+              </label>
+              <input type="text" class="form-control col-md-10" />
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div>
+
+  </div>
+</div>
+</div>

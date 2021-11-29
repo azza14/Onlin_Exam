@@ -42,7 +42,7 @@ namespace Online_Exam.Controllers
             var userList = _repoUser.GetAll();
             return Ok(userList);
         }
-
+        [CustomAuthorize(Role.Admin)]
         [HttpGet("{id:int}")]
         public IActionResult GetById(int id)
         {

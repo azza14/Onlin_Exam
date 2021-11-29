@@ -1,0 +1,57 @@
+.menu {
+    background: #3660b4;    
+    color: #fff;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    position: fixed;
+    top: 0;
+    left: -300px;
+    bottom: 0;
+    width: 300px;
+    transition: all .3s ease-in-out;
+    z-index: 999;
+}
+.menu.open {
+    left: 0;
+}
+.menu .toggle-menu {
+    position: absolute;
+    right: -50px;
+    top: 0px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    background-color: #29509e;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 25px;
+    transition: all .3s ease-in-out;
+    
+}
+.menu.open .toggle-menu { 
+    right: -25px;
+}
+.menu li {
+    padding: 10px 15px;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(255,255,255,.2);
+    overflow: hidden;
+}
+.menu li i {
+    float: right;
+}
+.menu a {
+    text-decoration: none;
+    color: #fff;
+}
+.menu ol  {
+    display: none;
+}
+.menu ol.open  {
+    display: block;
+}
+.menu ol li {
+    padding-left: 30px;
+}

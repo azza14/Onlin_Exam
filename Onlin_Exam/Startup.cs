@@ -69,6 +69,30 @@ namespace Online_Exam
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OnLine_Exam", Version = "v1" });
                 c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+
+                //c.AddSecurityDefinition("bearer", new OpenApiSecurityScheme()
+                //{
+                //     Name = "Authorization",
+                //    Type = SecuritySchemeType.ApiKey,
+                //    Scheme = "Bearer",
+                //    BearerFormat = "JWT",
+                //    In = ParameterLocation.Header,
+                //    Description = "JWT Authorization header using the Bearer scheme."
+
+                //});
+                //c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                //{
+                //    {
+                //        new OpenApiSecurityScheme
+                //        {
+                //            Reference= new OpenApiReference
+                //            {
+                //                Type=ReferenceType.Schema,
+                //                Id="bearer"
+                //            }
+                //        }, new List<string>()
+                //    }
+                //});
             });
 
         //    CustomAuthentication.AddCustomAuthentication(services,Configuration);

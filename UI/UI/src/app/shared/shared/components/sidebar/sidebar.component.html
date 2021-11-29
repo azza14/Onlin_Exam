@@ -1,0 +1,72 @@
+<div class="menu open" id="menu">
+    <div class="toggle-menu" (click)="toggleSidebar('menu')">
+        <i class="fas fa-bars"></i>
+    </div>
+    <ul class="list-unstyled">
+        <li>
+            <a class="nav-link" routerLinkActive="active" routerLink="../">
+                <span class="fa fa-home mr-3"></span>Home
+            </a>
+        </li>
+
+        <li>
+            <a class="nav-link" routerLinkActive="active" routerLink="../">
+                <span class="fa fa-user mr-3"></span>Register</a>
+        </li>
+        <li>
+            <a class="nav-link" routerLinkActive="active" routerLink="../login">
+                <span class="fa fa-user-plus mr-3"></span> Login
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" routerLinkActive="active" routerLink="../attendance">
+                <span class="fa fa-check-square mr-3"></span>Attendance
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" routerLinkActive="active" routerLink="../exam">
+                <span class="fa fa-check-square mr-3"></span>Exam
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" routerLinkActive="active" routerLink="../category-list">
+                <span class="fa fa-check-square mr-3"></span>Categories
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" routerLinkActive="active" routerLink="../employee">
+                <span class="fa fa-user mr-3"></span>Employee
+            </a>
+        </li>
+        <li (click)="toggleSubLinks('subLins1')">
+            side link <i class="fa fa-caret-right"></i>
+        </li>
+        <ol id="subLins1" class="list-unstyled">
+            <li>
+                <a class="nav-link" routerLinkActive="active" routerLink="/side">sidebar</a>
+            </li>
+            <li>
+                <a class="nav-link" routerLinkActive="active" routerLink="/side">sidebar</a>
+            </li>
+        </ol>
+        <li>
+            <a href="#"> Link</a>
+        </li>
+        <li (click)="toggleSubLinks('subLins2')">
+            link <i class="fa fa-caret-right"></i>
+        </li>
+        <ol id="subLins2" class="list-unstyled">
+            <li>sub link</li>
+            <li>sub link</li>
+            <li>sub link</li>
+        </ol>
+        <li><a href="#">link</a></li>
+        <li><a href="#">link</a></li>
+        <li (click)="toggleSubLinks('subLins3')">
+            link <i class="fa fa-caret-right"></i>
+        </li>
+        <ol id="subLins3" class="list-unstyled">
+            <li>sub link</li>
+        </ol>
+    </ul>
+</div>

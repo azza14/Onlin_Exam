@@ -1,0 +1,12 @@
+
+/**********************************************************************/
+/* You can add global styles to this file, and also import other style files */
+.mode-content {
+  transition: all .3s ease-in-out;
+}
+body.mode-on .mode-content {
+  padding-left: 300px;
+}
+body.mode-off .mode-content {
+  padding-left: 0;
+}

@@ -1,0 +1,26 @@
+fieldset legend {
+    width: 175px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #444;
+    text-transform: uppercase;
+}
+
+/* start select-image */
+.select-image {
+    width: 200px;
+    height: 200px;
+    border: 2px dashed #ccc;
+    border-radius: 7px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.select-image img {
+    padding: 10px;
+    width: 100%;
+    height: auto;
+}
+.select-image input {
+    display: none;
+}
+/* end select-image */
