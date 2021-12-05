@@ -16,47 +16,48 @@ export class CategoryService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   //Get All categorys
   getAllcategory(): any {
-    
     var result = this.http.get<category[]>(`${this.url}Categories`);
     return result;
   }
-  // update 
-  updatecategory( id : number,category: category): Observable<category> {
-    debugger
-    return this.http.put<category>(this.url + 'Categories?id='+ id, category, this.httpOptions);
-  }
-  // Add
-  addcategory(category: category): Observable<category> {
-    return this.http.post<category>(
-      this.url + 'Categories',
+  // update
+  updatecategory(id: number, category: category): Observable<category> {
+    return this.http.put<category>(
+      this.url + 'Categories/Update' + '?id=' + id,
       category,
       this.httpOptions
     );
   }
+  // Add
+  addcategory(category: category): Observable<category> {
+    debugger;
+    return this.http.post<category>(
+      this.url + 'Categories/Create', category,this.httpOptions );
+  }
   // Detail
-  getcategory(id: number):any {
-    return this.http.get<category>(`${this.url}Categories/${id}`,
+  getcategory(id: number): any {
+    return this.http.get<category>(
+      `${this.url}Categories/${id}`,
       this.httpOptions
     );
   }
-   // Search By Name
-   findByTitle(name): Observable<any> {
+  // Search By Name
+  findByTitle(name): Observable<any> {
     return this.http.get(`${this.url}?name=${name}`);
   }
 
   getcategoryByName(id: number): any {
     return this.http.get<category>(
-      this.url + 'Categories/GetByName'+'?id='+ id,
+      this.url + 'Categories/GetByName' + '?id=' + id,
       this.httpOptions
     );
   }
   // delete action
   delete(id: any) {
-      return this.http.delete(`${this.url}Categories/${id}`); 
+    return this.http.delete(`${this.url}Categories/${id}`);
   }
 
   // Handle API errors

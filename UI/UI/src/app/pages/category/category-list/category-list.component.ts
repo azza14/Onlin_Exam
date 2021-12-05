@@ -36,7 +36,7 @@ export class CategoryListComponent implements OnInit {
     this.dataSaved = false;
     debugger;
     this.CreateCategory(this.categoryForm.value);
-   // this.categoryForm.reset();
+    this.categoryForm.reset();
   }
   loadCaategoryToEdit(id:number){
     debugger;
@@ -50,7 +50,7 @@ export class CategoryListComponent implements OnInit {
   CreateCategory(category:any) {
     debugger;
     if (this.categoryIdUpdate == null) {     
-
+     debugger;
       this.service.addcategory(category).subscribe(
         () => {
           this.dataSaved = true;
@@ -59,9 +59,9 @@ export class CategoryListComponent implements OnInit {
           this.categoryForm.reset();
         }
       );
-    } else {
+    } else
+     {
       category.id = this.categoryIdUpdate;
-     debugger;
       this.service.updatecategory(category.id,category).subscribe(() => {
         this.dataSaved = true;
         this.getAllcategory();

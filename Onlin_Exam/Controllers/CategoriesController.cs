@@ -54,7 +54,7 @@ namespace Online_Exam.Controllers
         }
         #endregion
         #region CreateCategory
-        [HttpPost]
+        [HttpPost("Create")]
         public IActionResult Create([FromBody] CategoryDTO model)
         {
              try
