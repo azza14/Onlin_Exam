@@ -36,7 +36,7 @@ export class CategoryListComponent implements OnInit {
     this.dataSaved = false;
     debugger;
     this.CreateCategory(this.categoryForm.value);
-    this.categoryForm.reset();
+   // this.categoryForm.reset();
   }
   loadCaategoryToEdit(id:number){
     debugger;
@@ -44,9 +44,9 @@ export class CategoryListComponent implements OnInit {
       this.dataSaved = false;
       this.categoryIdUpdate = res.id;
       this.categoryForm.controls['name'].setValue(res.name);
-      
     });
      }
+     
   CreateCategory(category:any) {
     debugger;
     if (this.categoryIdUpdate == null) {     
@@ -61,8 +61,8 @@ export class CategoryListComponent implements OnInit {
       );
     } else {
       category.id = this.categoryIdUpdate;
-     
-      this.service.updatecategory(category).subscribe(() => {
+     debugger;
+      this.service.updatecategory(category.id,category).subscribe(() => {
         this.dataSaved = true;
         this.getAllcategory();
         this.categoryIdUpdate = null;
@@ -70,61 +70,6 @@ export class CategoryListComponent implements OnInit {
       });
     }
   }
-  #region 
-   // onFormSubmit(){
-  //   this.dataSaved= false;
-  //   const category= this.categoryForm.value;
-    
-  //   debugger;
-  //   if(category.id==0){
-  //     this.createCategory(category);
-  //   }
-  //   else{
-  //     this.Edit(category.id);
-  //   }    
-  // }
-  // createCategory(category:category){
-  //   //this.categoryIdUpdate == null
-  //     this.service.addcategory(category)
-  //     .subscribe(  ()=>{
-  //       this.dataSaved=true;
-  //       this.message=' Record saved successful';
-  //       this.getAllcategory();
-  //      // this.categoryIdUpdate= null;
-  //       this.categoryForm.reset();
-  //     } ); 
-  //  }
-  //  Edit(id:any){
-  //    debugger
-     
-  //     let category= this.service.getcategory(id);
-  //     console.log(category);
-  //     this.service.updatecategory(category).subscribe( ()=>{
-  //     debugger
-  //     this.categoryForm.controls['id'].setValue(id);  
-  //     this.categoryForm.controls['name'].setValue(category.name);  
-  //     //this.dataSaved= true;
-  //     this.message = 'Record Updated Successfully';  
-  //     this.getAllcategory();
-
-  //   } );
-  //  }
-  // loadCaategoryToEdit(id:number){
-  //   debugger;
-  //  this.service.getcategory(id).subscribe( category=>{
-  //     this.message = null;  
-  //     this.dataSaved = false;  
-  //     this.categoryIdUpdate = category.id;  
-  //     this.categoryForm.controls['name'].setValue(category.name);  
-  //  // this.categoryForm.controls['id'].setValue(category.id);  
-    
-  //   // this.dataSaved= true;
-  //   // this.message = 'Record Updated Successfully';  
-  //   // this.getAllcategory();
-  // } );
-  // }
-  #endregion
-
   getAllcategory() {
     this.service.getAllcategory().subscribe((data) => {
       this.categoryList = data;

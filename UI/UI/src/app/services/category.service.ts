@@ -25,8 +25,9 @@ export class CategoryService {
     return result;
   }
   // update 
-  updatecategory(category: category): Observable<category> {
-    return this.http.put<category>(this.url + 'Categories', category, this.httpOptions);
+  updatecategory( id : number,category: category): Observable<category> {
+    debugger
+    return this.http.put<category>(this.url + 'Categories?id='+ id, category, this.httpOptions);
   }
   // Add
   addcategory(category: category): Observable<category> {
