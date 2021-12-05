@@ -31,74 +31,97 @@ export class CategoryListComponent implements OnInit {
   });
   this.getAllcategory();
   }
-  onFormSubmit(){
-    this.dataSaved= false;
-    const category= this.categoryForm.value;
-    this.createCategory(category);
+
+  onFormSubmit() {
+    this.dataSaved = false;
+    this.CreateCategory(this.categoryForm.value);
     this.categoryForm.reset();
-    // if(category.id==0){
-    //   this.createCategory(category);
-    // }
-    // else{
-    //   this.loadCaategoryToEdit(category.id);
-    // }
-   
   }
-  createCategory(category:category){
-   if(this.categoryIdUpdate== null){
-    this.service.addcategory(category)
-    .subscribe(  ()=>{
-      this.dataSaved=true;
-      this.message=' Record saved successful';
-      this.getAllcategory();
-     this.categoryForm.reset();
-    } ); 
-   }
-   else{
-     debugger
-     category.id= this.categoryIdUpdate;
-     console.log('category.id', category.id)
-     this.service.updatecategory(category).subscribe(()=>{
-      this.dataSaved=true;
-      this.message=' Record saved successful';
-      this.getAllcategory();
-      this.categoryIdUpdate= null;
-     this.categoryForm.reset();
-     })
-  }
-   
-}
   loadCaategoryToEdit(id:number){
     debugger;
-   this.service.getcategory(id).subscribe( category=>{
-      this.message = null;  
-      this.dataSaved = false;  
-      this.categoryIdUpdate = category.id;  
-      this.categoryForm.controls['name'].setValue(category.name);  
-   // this.categoryForm.controls['id'].setValue(category.id);  
-    
-    // this.dataSaved= true;
-    // this.message = 'Record Updated Successfully';  
-    // this.getAllcategory();
+     this.service.getcategory(id).subscribe(res => {
+      this.dataSaved = false;
+      this.categoryIdUpdate = res.id;
+      this.categoryForm.controls['name'].setValue(res.name);
+      
+    });
+     }
+  CreateCategory(category: category) {
+    if (this.categoryIdUpdate == null) {     
 
-  } );
-
-  }
-  onSubmit() {
-    if(this.categoryForm.valid){
-      this.service.addcategory(this.categoryForm.value)
-      .subscribe( data => {   
-      this.resetForm();
-      });   
-
+      this.service.addcategory(category).subscribe(
+        () => {
+          this.dataSaved = true;
+          this.getAllcategory();
+          this.categoryIdUpdate = null;
+          this.categoryForm.reset();
+        }
+      );
     } else {
-      alert('User form is not valid!!')
-      console.log(this.categoryForm.value)
-    }
-   
-     this.getAllcategory();
+      category.id = this.categoryIdUpdate;
      
+      this.service.updatecategory(category).subscribe(() => {
+        this.dataSaved = true;
+        this.getAllcategory();
+        this.categoryIdUpdate = null;
+        this.categoryForm.reset();
+      });
+    }
   }
+  #region 
+   // onFormSubmit(){
+  //   this.dataSaved= false;
+  //   const category= this.categoryForm.value;
+    
+  //   debugger;
+  //   if(category.id==0){
+  //     this.createCategory(category);
+  //   }
+  //   else{
+  //     this.Edit(category.id);
+  //   }    
+  // }
+  // createCategory(category:category){
+  //   //this.categoryIdUpdate == null
+  //     this.service.addcategory(category)
+  //     .subscribe(  ()=>{
+  //       this.dataSaved=true;
+  //       this.message=' Record saved successful';
+  //       this.getAllcategory();
+  //      // this.categoryIdUpdate= null;
+  //       this.categoryForm.reset();
+  //     } ); 
+  //  }
+  //  Edit(id:any){
+  //    debugger
+     
+  //     let category= this.service.getcategory(id);
+  //     console.log(category);
+  //     this.service.updatecategory(category).subscribe( ()=>{
+  //     debugger
+  //     this.categoryForm.controls['id'].setValue(id);  
+  //     this.categoryForm.controls['name'].setValue(category.name);  
+  //     //this.dataSaved= true;
+  //     this.message = 'Record Updated Successfully';  
+  //     this.getAllcategory();
+
+  //   } );
+  //  }
+  // loadCaategoryToEdit(id:number){
+  //   debugger;
+  //  this.service.getcategory(id).subscribe( category=>{
+  //     this.message = null;  
+  //     this.dataSaved = false;  
+  //     this.categoryIdUpdate = category.id;  
+  //     this.categoryForm.controls['name'].setValue(category.name);  
+  //  // this.categoryForm.controls['id'].setValue(category.id);  
+    
+  //   // this.dataSaved= true;
+  //   // this.message = 'Record Updated Successfully';  
+  //   // this.getAllcategory();
+  // } );
+  // }
+  #endregion
 
   getAllcategory() {
     this.service.getAllcategory().subscribe((data) => {
