@@ -44,6 +44,14 @@ namespace Online_Exam.Controllers
             var result = _mapper.Map<CategoryDTO>(category);
             return Ok(result);
         }
+        [HttpGet("GetByName")]
+        public JsonResult GetByName(int? id)
+        {
+            //if (id == null)
+            //    return BadRequest();
+            var category = _repository.GetById(id.Value).Name;
+            return new JsonResult( category);
+        }
         #endregion
         #region CreateCategory
         [HttpPost]
@@ -85,7 +93,7 @@ namespace Online_Exam.Controllers
         }
         #endregion
         #region DeleteCategory
-        [HttpDelete("Delete")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int? id)
         {
             try

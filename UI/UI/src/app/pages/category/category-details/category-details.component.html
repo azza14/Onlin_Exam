@@ -1,0 +1,23 @@
+
+<app-sidebar></app-sidebar>
+
+<div class="mode-content">
+  <div class="container mt-5">
+<p>category-details works!</p>
+
+<div class="modal-body">
+    <form [formGroup]="addForm">
+      <div class="form-group">
+           <label for="categoryName">Name</label>
+           <input type="text"  class="form-control" 
+             formControlName="name" name="categoryName" placeholder="enter name">
+      </div>
+
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-outline-dark" onclick="goBack()" >back</button>
+  </div>
+  </form>
+  </div>
+  </div>
+  </div>
+  

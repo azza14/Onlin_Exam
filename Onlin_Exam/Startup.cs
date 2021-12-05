@@ -18,6 +18,7 @@ using Online_Exam.Entities;
 using Online_Exam.Extensions;
 using Online_Exam.Helpers;
 using Online_Exam.Repositories;
+using Online_Exam.Repositories.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -55,6 +56,7 @@ namespace Online_Exam
             // configure DI for application services
             services.AddScoped<IJwtUtils, JwtUtils>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddTransient<IExamRepository, ExamRepository>();
 
             // Auto Mapper Configurations
             var mapperConfig = new AutoMapper.MapperConfiguration(mc =>

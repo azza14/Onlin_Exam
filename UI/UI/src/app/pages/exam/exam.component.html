@@ -1,8 +1,96 @@
 <app-sidebar></app-sidebar>
-
 <div class="mode-content">
   <div class="container-fluid mt-5">
+          <!-- // (ngSubmit)="this[EventValue]()" >  --> 
+     <form [formGroup]="examForm"  (ngSubmit)="onSubmit(examForm)"> 
+    <div class="row">
+      <table class="table">
+        <tr>
+          <td class="control-label">Title</td>
+          <td>
+            <input type="hidden" name="id">
+            <input class="form-control" type="text" formControlName="title">
+            <div *ngIf="submitted && examForm.controls.title.errors" class="text-danger">
+              <div *ngIf="examForm.controls.title.errors.required">Title is required</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="control-label">Description</td>
+          <td><input  class="form-control" type="text" formControlName="description">
+            <div *ngIf="submitted && examForm.controls.description.errors" class="text-danger">
+              <div *ngIf="examForm.controls.description.errors.required">description is required</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="control-label">QuestionsCount</td>
+          <td>
+            <input  class="form-control" type="text" formControlName="questionsCount">
+            <div *ngIf="submitted && examForm.controls.questionsCount.errors" class="text-danger">
+              <div *ngIf="examForm.controls.questionsCount.errors.required">questionsCount is required</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="control-label"> Categories</td>
+          <td>
+            <select class="form-control custom-select-category"  (chang)="changeCategory($event)" id="categoryId" name ="categoryId" formControlName="categoryId">
+              <option value="" disabled >Choose Catwgory</option>
+              <option *ngFor=" let cat of categories" [ngValue]="cat.id"> {{cat.name}}</option>
+            </select>
+            <!-- <div *ngIf="   examForm.categoryId.invalid" class="text-danger">
+              <div *ngIf="examForm.controls.categoryId.errors.required">categoryId is required</div>
+            </div> -->
+           
+          </td>
+        </tr>
+        <tr>
+          <td class="control-label">Score</td>
+          <td>
+            <input class="form-control" type="text" formControlName="score">
+            <div *ngIf="submitted && examForm.controls.score.errors" class="text-danger">
+              <div *ngIf="examForm.controls.score.errors.required">score is required</div>
+            </div>
 
-    test
-  </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <button type="submit" class="btn btn-primary" [disabled]="!examForm.valid">Save</button> <!--{{EventValue}}--->
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="row">
+      <table class="table table-striped">
+        <tr>
+          <td scope="col">Id</td>
+          <td scope="col">title</td>
+
+          <td scope="col">description</td>
+          <td scope="col">questionsCount</td>
+          <td scope="col">score</td>
+          <td scope="col"> category</td>
+          <td scope="col">Edit</td>
+          <td scope="col">Delete</td>
+        </tr>
+        <tr *ngFor="let d of examList">
+          <td>{{d.id}}</td>
+          <td>{{d.title}}</td>
+
+          <td>{{d.description}}</td>
+          <td>{{d.questionsCount}}</td>
+          <td>{{d.score}}</td>
+          <td> {{d.categoryName}}</td>
+          <td><a (click)="editExam(d.id)" class="btn btn-warning">Edit</a></td>
+          <td><a (click)="deleteExam(d.id)" class="btn btn-danger">Delete</a></td>
+        </tr>
+      </table>
+    </div>
+  </form> 
+ 
+     
+</div>
 </div>

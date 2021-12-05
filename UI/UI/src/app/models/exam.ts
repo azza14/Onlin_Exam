@@ -4,4 +4,5 @@ export class exam {
   Description: string | undefined;
   QuestionsCount: string | undefined;
   Score: number | undefined;
+  CategoryId:number 
 }

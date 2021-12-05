@@ -1,6 +1,8 @@
+import { UserService } from './services/user.service';
+import { CategoryService } from './services/category.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from "./AppComponent";
@@ -13,10 +15,14 @@ import { AppComponent } from "./AppComponent";
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    CategoryService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,41 +1,58 @@
-
 <app-sidebar></app-sidebar>
-
 <div class="mode-content">
-  <div class="container mt-5">
-      <div class="row">
-        <button type="button" class="btn btn-info  "> 
-           <i class="fas fa-file pr-2" aria-hidden="true"></i></button>
-       <table   class="table table-striped table-hover table-bordered">
-         <thead class=" ">
-           <tr class="text-center">
-               <th> # </th>
-               <th> Name <i class="fa fa-sort"></i></th>
-                <th>action</th>
-           </tr>
-       </thead>
-           <!-- <tr *ngFor="let item of categoryList; let i = index" class="text-center"> --> 
-             <tr>
-              <!-- <td> {{i}}</td>
-              <td>{{item.name}}</td> -->
-              <td>sdgvhjgshjs</td>
-              <td>sagvjhgxzhj</td>
-              <td>
-                <a class="btn btn-info" [routerLink]="['/edit',item.id]"> 
-                   <i class="fas fa-pencil pr-2" aria-hidden="true"></i></a>
-               <span></span>
-               <a class="btn btn-danger" (click)="deleteTask(item.id)"> 
-                 <i class="fas fa-trash" aria-hidden="true"></i>
-               </a>
-            </td>
-           
-           </tr>
-       </table>
-  
-  
-      </div>
-    
+  <div class="container-fluid mt-5">
+    <form [formGroup]="categoryForm"  (ngSubmit)="onFormSubmit(categoryForm.value)"> 
+     <div class="row">
+       <table class="table">
+        <tr>
+          <td class="control-label">Name </td>
+          <td>
+            <input type="hidden" name="id" class="form-control" >
+            <input class="form-control"  type="text" formControlName="name">
+            <span *ngIf="!categoryForm.get('name').value && categoryForm.get('name').touched"></span>  
+         
+          </td>
+        </tr>
+         <tr>
+          <td colspan="2">
+            <button type="submit" class="btn btn-primary" [disabled]="!categoryForm.valid">Save</button> 
+          </td>
+         <td colspan="2"> 
+           <button type="reset"  class="btn btn-primary"  (click)="resetForm()">Reset</button>  
+        </td> 
+        </tr>
+      </table> 
+    </div> 
+ 
+    <div class="row">
 
+      <div class="table-responsive">
+      <table class="table table-striped ">
+        <tr>
+          <td scope="col">Id</td>
+          <td scope="col">Name <i class="fa fa-sort"></i></td>
+          <td scope="col">Edit</td>
+          <td scope="col">Delete</td>
+
+        </tr>
+        <tr *ngFor="let item of categoryList">
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
+   
+            
+          <td>
+            <button type="button" class="btn btn-info"  (click)="loadCaategoryToEdit(item.id)">Edit</button>  
+          </td>
+        <td class="tbl2">  
+          <button type="button" class="btn btn-danger" (click)="deleteCategory(item.id)"> Delete</button>  
+        </td>
+        </tr>
+       
+      </table>
     </div>
-
+    </div>
+  </form> 
+ 
+     
+</div>
 </div>

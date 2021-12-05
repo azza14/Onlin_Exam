@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'category-list',
-    loadChildren: () => import('./pages/category/category-list/category-list.module').then(m => m.CategoryListModule)
+    loadChildren: () => import('./pages/category/category.module').then(m => m.CategoryModule)
   },
   
   {

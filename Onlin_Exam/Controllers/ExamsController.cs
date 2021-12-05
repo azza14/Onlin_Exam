@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Online_Exam.DTO;
 using Online_Exam.Entities;
 using Online_Exam.Repositories;
+using Online_Exam.Repositories.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,24 +16,29 @@ namespace Online_Exam.Controllers
     [ApiController]
     public class ExamsController : ControllerBase
     {
-        private IGenericRepository<Exam> _examRepo;
+        private IGenericRepository<Exam> _examRepo; 
+        private readonly IExamRepository _examRepository; 
         private readonly IMapper _mapper;
         #region Constructor
         public ExamsController(IGenericRepository<Exam> repository, 
-            IMapper mapper)
+            IMapper mapper,
+            IExamRepository examRepository)
         {
             this._examRepo = repository;
             _mapper = mapper;
+            _examRepository = examRepository;
         }
         #endregion
         #region Get
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            var listExam = _examRepo.GetAll();
-            var result = _mapper.Map<IEnumerable<ExamDTO>>(listExam);
-            return Ok(result);
+            
+            var listExam = _examRepository.GetExams();
+            //var result = _mapper.Map<IEnumerable<ExamDTO>>(listExam);
+            return Ok(listExam);
         }
+
         [HttpGet("GetExamWithQuestions")]
         public IActionResult GetExamsWithQuestions()
         {
