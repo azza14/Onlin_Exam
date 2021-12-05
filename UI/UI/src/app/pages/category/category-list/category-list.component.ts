@@ -34,6 +34,7 @@ export class CategoryListComponent implements OnInit {
 
   onFormSubmit() {
     this.dataSaved = false;
+    debugger;
     this.CreateCategory(this.categoryForm.value);
     this.categoryForm.reset();
   }
@@ -46,7 +47,8 @@ export class CategoryListComponent implements OnInit {
       
     });
      }
-  CreateCategory(category: category) {
+  CreateCategory(category:any) {
+    debugger;
     if (this.categoryIdUpdate == null) {     
 
       this.service.addcategory(category).subscribe(
