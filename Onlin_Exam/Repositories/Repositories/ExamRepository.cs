@@ -46,6 +46,7 @@ namespace Online_Exam.Repositories.Repositories
                             Title = ex.Title,
                             Description = ex.Description,
                             CategoryName = c.Name,
+                            CategoryId=c.Id,
                             QuestionsCount = ex.QuestionsCount,
                             Score = ex.Score
                         }).FirstOrDefault();
