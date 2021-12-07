@@ -50,18 +50,19 @@ namespace Online_Exam.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-          //  var Exam = new Exam();
-            var Exam = _examRepo.GetById(id);
+            //  var Exam = new Exam();
+            var Exam = _examRepository.GetExamsDetails(id);
+           // var Exam = _examRepo.GetById(id);
             if (Exam == null)
                 return NotFound();
             else
             {
-                return Ok(_mapper.Map<ExamDTO>(Exam));
+                return Ok(_mapper.Map<ExamSingleDTO>(Exam));
             }
         }
         #endregion
         #region CerateExam
-        [HttpPost]
+        [HttpPost("CreateExam")]
         public IActionResult Create([FromBody] ExamDTO model)
         {
             try
@@ -86,7 +87,7 @@ namespace Online_Exam.Controllers
 
         #endregion
         #region UpdateExam
-        [HttpPut("{id}")]
+        [HttpPut("Update")]
         public IActionResult Update(int id, [FromBody] ExamDTO model)
         {
             var Exam = _examRepo.GetById(id);

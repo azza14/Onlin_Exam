@@ -50,7 +50,7 @@ export class CategoryListComponent implements OnInit {
   CreateCategory(category:any) {
     debugger;
     if (this.categoryIdUpdate == null) {     
-     debugger;
+     ;
       this.service.addcategory(category).subscribe(
         () => {
           this.dataSaved = true;

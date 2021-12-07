@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ExamRoutingModule } from './exam-routing.module';
 import { ExamComponent } from './exam.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ExamDetailsComponent } from './exam-details/exam-details.component';
 
 
 @NgModule({
@@ -16,6 +17,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     SharedModule
   ],
-  declarations: [ExamComponent]
+  declarations: [ExamComponent, ExamDetailsComponent]
 })
 export class ExamModule { }

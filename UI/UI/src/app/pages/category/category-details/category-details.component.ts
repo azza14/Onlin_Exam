@@ -1,34 +1,29 @@
+import { category } from './../../../models/category';
 import { CategoryService } from 'src/app/services/category.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-category-details',
   templateUrl: './category-details.component.html',
-  styleUrls: ['./category-details.component.css']
+  styleUrls: ['./category-details.component.css'],
 })
 export class CategoryDetailsComponent implements OnInit {
-  @Input() itemId:any ;
-  addForm:FormGroup;
-   itemDetail :any={};
-   @Output() items= new EventEmitter<any>();
-   router: any;
-   constructor( private fb:FormBuilder,private service:CategoryService) { }
- 
-   ngOnInit(): void {
-     this.getCategoryDetail(this.itemId);
-   }
-   
-   getCategoryDetail(id){
-     this.service.getcategory(id).subscribe(res=>{
-       this.itemDetail=res;
-       console.log(this.itemDetail);
+  constructor(
+    private serveice: CategoryService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+  id: number;  
+  categorydata: category;
+  ngOnInit(): void {
+    debugger;
+    this.id = this.route.snapshot.params['id'];
 
-     })
-   }
-
-   goBack(){
-      this.router.navigate(['./category-list']);
-
-   }
-   }
+    this.serveice.getcategory(this.id).subscribe((data) => {
+      this.categorydata = data;
+      console.log(this.categorydata);
+    });
+  }
+}

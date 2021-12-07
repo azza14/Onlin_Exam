@@ -2,13 +2,13 @@
 <div class="mode-content">
   <div class="container-fluid mt-5">
           <!-- // (ngSubmit)="this[EventValue]()" >  --> 
-     <form [formGroup]="examForm"  (ngSubmit)="onSubmit(examForm)"> 
+     <form [formGroup]="examForm"  (ngSubmit)="onFormSubmit()"> 
     <div class="row">
       <table class="table">
         <tr>
           <td class="control-label">Title</td>
           <td>
-            <input type="hidden" name="id">
+            <input type="hidden" name="id"  class="form-control">
             <input class="form-control" type="text" formControlName="title">
             <div *ngIf="submitted && examForm.controls.title.errors" class="text-danger">
               <div *ngIf="examForm.controls.title.errors.required">Title is required</div>
@@ -48,6 +48,7 @@
         <tr>
           <td class="control-label">Score</td>
           <td>
+            <!-- [(ngModel)]="the_score"  -->
             <input class="form-control" type="text" formControlName="score">
             <div *ngIf="submitted && examForm.controls.score.errors" class="text-danger">
               <div *ngIf="examForm.controls.score.errors.required">score is required</div>
@@ -59,7 +60,9 @@
         <tr>
           <td colspan="2">
             <button type="submit" class="btn btn-primary" [disabled]="!examForm.valid">Save</button> <!--{{EventValue}}--->
+            <button type="reset"  class="btn btn-primary ml-3"  (click)="resetForm()">Reset</button> 
           </td>
+           
         </tr>
       </table>
     </div>
@@ -73,19 +76,26 @@
           <td scope="col">questionsCount</td>
           <td scope="col">score</td>
           <td scope="col"> category</td>
-          <td scope="col">Edit</td>
-          <td scope="col">Delete</td>
+          <td scope="col">Actions</td>
+          
         </tr>
         <tr *ngFor="let d of examList">
           <td>{{d.id}}</td>
           <td>{{d.title}}</td>
-
           <td>{{d.description}}</td>
           <td>{{d.questionsCount}}</td>
-          <td>{{d.score}}</td>
-          <td> {{d.categoryName}}</td>
-          <td><a (click)="editExam(d.id)" class="btn btn-warning">Edit</a></td>
-          <td><a (click)="deleteExam(d.id)" class="btn btn-danger">Delete</a></td>
+          <td>{{d.score  }}</td>
+          <td> {{d.categoryName}}</td> 
+          <td> 
+            <button type="button" class="btn btn-primary  " [routerLink]="['./details',d.id]">
+              <!-- <i class="fa fa-eye"></i> -->Details
+            </button> |
+          
+            <button type="button" class="btn btn-info"  (click)="loadExamToEdit(d.id)">Edit</button>  
+              |   
+            <button type="button" class="btn btn-danger"(click)="deleteExam(d.id)"> Delete</button>  
+          </td>
+          
         </tr>
       </table>
     </div>

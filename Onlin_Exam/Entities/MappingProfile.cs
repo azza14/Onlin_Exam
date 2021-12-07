@@ -20,6 +20,10 @@ namespace Online_Exam.Entities
                 .ForMember(dest => dest.Questions, opt => opt.MapFrom(src => src.Questions))
                 .ReverseMap();
 
+            CreateMap<Exam, ExamSingleDTO>()
+              .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
+              .ReverseMap();
+            
             CreateMap<Question, QuestionDTO>()
                 .ReverseMap();
 

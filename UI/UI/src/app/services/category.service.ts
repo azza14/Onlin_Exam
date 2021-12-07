@@ -16,7 +16,7 @@ export class CategoryService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   //Get All categorys
   getAllcategory(): any {
@@ -35,13 +35,14 @@ export class CategoryService {
   addcategory(category: category): Observable<category> {
     debugger;
     return this.http.post<category>(
-      this.url + 'Categories/Create', category,this.httpOptions );
+      this.url + 'Categories/Create',
+      category,
+      this.httpOptions
+    );
   }
   // Detail
   getcategory(id: number): any {
-    return this.http.get<category>(
-      `${this.url}Categories/${id}`,
-      this.httpOptions
+    return this.http.get<category>( `${this.url}Categories/${id}`,this.httpOptions
     );
   }
   // Search By Name

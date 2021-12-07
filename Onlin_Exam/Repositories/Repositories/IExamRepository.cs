@@ -9,5 +9,6 @@ namespace Online_Exam.Repositories.Repositories
     public interface IExamRepository
     {
         List<ExamListDTO> GetExams();
+        ExamSingleDTO GetExamsDetails(int id);
     }
 }

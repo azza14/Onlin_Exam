@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Online_Exam.DTO
 {
-    public class ExamDTO
+    public class ExamSingleDTO
     {
         public int Id { get; set; }
         [Required]
@@ -18,6 +18,7 @@ namespace Online_Exam.DTO
         public int Score { get; set; }
 
         public int CategoryId { get;  set; }
+        public string CategoryName { get;  set; }
 
         public IList<QuestionDTO> Questions { get; set; }
     }

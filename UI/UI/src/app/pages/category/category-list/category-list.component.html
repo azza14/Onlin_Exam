@@ -16,10 +16,10 @@
          <tr>
           <td colspan="2">
             <button type="submit" class="btn btn-primary" [disabled]="!categoryForm.valid">Save</button> 
+            <button type="reset"  class="btn btn-primary ml-3"  (click)="resetForm()">Reset</button>  
+
           </td>
-         <td colspan="2"> 
-           <button type="reset"  class="btn btn-primary"  (click)="resetForm()">Reset</button>  
-        </td> 
+          
         </tr>
       </table> 
     </div> 
@@ -31,19 +31,21 @@
         <tr>
           <td scope="col">Id</td>
           <td scope="col">Name <i class="fa fa-sort"></i></td>
-          <td scope="col">Edit</td>
-          <td scope="col">Delete</td>
+          <td scope="col">Action</td>
+          <!-- <td scope="col">Edit</td>
+          <td scope="col">Delete</td> -->
 
         </tr>
         <tr *ngFor="let item of categoryList">
           <td>{{item.id}}</td>
           <td>{{item.name}}</td>
-   
-            
-          <td>
+          <td> 
+            <button type="button" class="btn btn-primary  " [routerLink]="['./show',item.id]">
+              <!-- <i class="fa fa-eye"></i> -->Details
+            </button> |
+         
             <button type="button" class="btn btn-info"  (click)="loadCaategoryToEdit(item.id)">Edit</button>  
-          </td>
-        <td class="tbl2">  
+             |
           <button type="button" class="btn btn-danger" (click)="deleteCategory(item.id)"> Delete</button>  
         </td>
         </tr>

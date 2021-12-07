@@ -28,11 +28,31 @@ namespace Online_Exam.Repositories.Repositories
                             Title = exam.Title,
                             Description = exam.Description,
                             QuestionsCount = exam.QuestionsCount,
+                            Score= exam.Score,
                             CategoryName = c.Name
                         }).ToList();
             return list;
         }
+        public ExamSingleDTO GetExamsDetails(int id)
+        {
+            var exam = (from ex in _context.Exams
+                        join c in _context.Categories
 
+                        on ex.CategoryId equals c.Id 
+                        where ex.Id ==id                      
+                        select new ExamSingleDTO
+                        {
+                            Id = ex.Id,
+                            Title = ex.Title,
+                            Description = ex.Description,
+                            CategoryName = c.Name,
+                            QuestionsCount = ex.QuestionsCount,
+                            Score = ex.Score
+                        }).FirstOrDefault();
+
+            return exam;
+
+        }
         public List<Exam> GetAllExams()
         {
             var list = GetAll();
