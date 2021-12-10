@@ -8,9 +8,20 @@
           <td class="control-label">Name </td>
           <td>
             <input type="hidden" name="id" class="form-control" >
-            <input class="form-control"  type="text" formControlName="name">
+            <input class="form-control"  type="text" formControlName="name"  
+                  [ngClass]="{'has-error': ((categoryForm.get('name').touched ||
+                  categoryForm.get('name').dirty) &&categoryForm.get('name').errors)}">
             <span *ngIf="!categoryForm.get('name').value && categoryForm.get('name').touched"></span>  
-         
+            <span class=" help-block text-danger"
+                   *ngIf="((categoryForm.get('name').touched ||
+                   categoryForm.get('name').dirty) &&
+                   categoryForm.get('name').errors)">
+                 <span *ngIf="categoryForm.get('name').errors.required">Name is required </span>
+                 <span *ngIf="categoryForm.get('name').errors.minlength ||
+                        categoryForm.get('name').errors.maxlength">
+                   Name Category  must be greater than 6 characters and less than 20 characters
+              </span>
+            </span>
           </td>
         </tr>
          <tr>

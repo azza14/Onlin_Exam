@@ -3,8 +3,8 @@ import { category } from './../../models/category';
 import { ExamService } from './../../services/exam.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { exam } from 'src/app/models/exam';
 import { Router } from '@angular/router';
+import { exam } from '../../models/exam';
 
 @Component({
   selector: 'app-exam',
@@ -19,6 +19,8 @@ export class ExamComponent implements OnInit {
    categoryName:any= '';
    examForm: FormGroup;
    examIdUpdate: null;
+
+   numberRegEx = /\-?\d*\.?\d{1,2}/;
 
   constructor (private service: ExamService ,
     private formBuilder: FormBuilder, 
@@ -44,10 +46,18 @@ export class ExamComponent implements OnInit {
   formBuilderExam(){
     this.examForm = this.formBuilder.group({
       id: [0],
-       title: ["",[Validators.required]],        
-       description: ["",[Validators.required]],
-       questionsCount: ["",[Validators.required]],  
-       score: ["",[Validators.required]],  
+       title: ["",[Validators.required,
+                  Validators.minLength(6),
+                  Validators.maxLength(20)]],        
+       description: ["",
+                        [Validators.required,
+                        Validators.minLength(6),
+                        Validators.maxLength(20)]
+                      ],
+       questionsCount: ["",[Validators.required,
+                           Validators.pattern(this.numberRegEx)]],  
+       score: ["",[Validators.required,
+                   Validators.pattern(this.numberRegEx)]],  
        categoryId: ["", [Validators.required]]
      });
  

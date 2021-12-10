@@ -27,7 +27,9 @@ export class CategoryListComponent implements OnInit {
   ngOnInit(): void {
    this.categoryForm = this.formBuilder.group({
      id:[0],
-     name: ["",[Validators.required]],            
+     name: ["",[Validators.required,
+                Validators.minLength(6),
+                Validators.maxLength(20)]],            
   });
   this.getAllcategory();
   }

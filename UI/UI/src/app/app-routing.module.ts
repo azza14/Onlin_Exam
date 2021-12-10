@@ -21,8 +21,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/employee/employee.module').then(m => m.EmployeeModule)
   },
   {
+    path: 'home',
+    loadChildren: () => import('./pages/home/home/home.module').then(m => m.HomeModule)
+  },
+  {
     path: '**',
-    redirectTo: 'employee',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {

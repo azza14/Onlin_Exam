@@ -5,55 +5,98 @@
      <form [formGroup]="examForm"  (ngSubmit)="onFormSubmit()"> 
     <div class="row">
       <table class="table">
-        <tr>
+        <tr >
           <td class="control-label">Title</td>
           <td>
-            <input type="hidden" name="id"  class="form-control">
-            <input class="form-control" type="text" formControlName="title">
-            <div *ngIf="submitted && examForm.controls.title.errors" class="text-danger">
-              <div *ngIf="examForm.controls.title.errors.required">Title is required</div>
-            </div>
+            <input type="hidden" name="id"  class="form-control" >
+            <input class="form-control" type="text" formControlName="title" 
+                  [ngClass]="{'has-error': ((examForm.get('title').touched ||
+                  examForm.get('title').dirty) &&examForm.get('title').errors)}" >
+
+            <span class=" help-block text-danger"
+                   *ngIf="((examForm.get('title').touched ||
+                   examForm.get('title').dirty) &&
+                   examForm.get('title').errors)">
+                 <span *ngIf="examForm.get('title').errors.required">Title is required </span>
+                 <span *ngIf="examForm.get('title').errors.minlength ||
+                              examForm.get('title').errors.maxlength">
+                   Title must be greater than 6 characters and less than 20 characters
+              </span>
+            </span>
           </td>
         </tr>
         <tr>
           <td class="control-label">Description</td>
-          <td><input  class="form-control" type="text" formControlName="description">
-            <div *ngIf="submitted && examForm.controls.description.errors" class="text-danger">
-              <div *ngIf="examForm.controls.description.errors.required">description is required</div>
-            </div>
+          <td>
+            <input  class="form-control" type="text" formControlName="description" 
+                                    [ngClass]="{'has-error': ((examForm.get('description').touched ||
+                                  examForm.get('description').dirty) &&
+                                  examForm.get('description').errors)}">
+            <span class=" help-block text-danger"
+                        *ngIf="((examForm.get('description').touched ||
+                               examForm.get('description').dirty) &&
+                               examForm.get('description').errors)">
+              <span *ngIf="examForm.get('description').errors.required">Description is required </span>
+              <span *ngIf="examForm.get('description').errors.minlength ||
+                          examForm.get('description').errors.maxlength">
+                          Description must be greater than 6 characters and less than 20 characters
+              </span>
+            </span>
+           
           </td>
         </tr>
         <tr>
           <td class="control-label">QuestionsCount</td>
           <td>
-            <input  class="form-control" type="text" formControlName="questionsCount">
-            <div *ngIf="submitted && examForm.controls.questionsCount.errors" class="text-danger">
-              <div *ngIf="examForm.controls.questionsCount.errors.required">questionsCount is required</div>
-            </div>
+            <input  class="form-control" type="text" formControlName="questionsCount"  
+                    [ngClass]="{'has-error': ((examForm.get('questionsCount').touched ||
+                    examForm.get('questionsCount').dirty) &&
+                    examForm.get('questionsCount').errors)}">
+            <span class=" help-block text-danger"
+                    *ngIf="((examForm.get('questionsCount').touched ||
+                           examForm.get('questionsCount').dirty) &&
+                           examForm.get('questionsCount').errors)">
+                 <span *ngIf="examForm.get('questionsCount').errors.required">QuestionsCount is required </span>
+                 <span *ngIf="examForm.get('questionsCount').errors.pattern"> Only Numbers allowed</span>
+            </span>
+          
           </td>
         </tr>
-        <tr>
+        <tr  >
           <td class="control-label"> Categories</td>
-          <td>
-            <select class="form-control custom-select-category"  (chang)="changeCategory($event)" id="categoryId" name ="categoryId" formControlName="categoryId">
+          <td  [ngClass]="{'has-error': ((examForm.get('categoryId').touched ||
+                                        examForm.get('categoryId').dirty) &&
+                                        examForm.get('categoryId').errors)}">
+            <select class="form-control custom-select-category"  (chang)="changeCategory($event)" 
+                   id="categoryId"   name ="categoryId" formControlName="categoryId">
               <option value="" disabled >Choose Catwgory</option>
               <option *ngFor=" let cat of categories" [ngValue]="cat.id"> {{cat.name}}</option>
             </select>
-            <!-- <div *ngIf="   examForm.categoryId.invalid" class="text-danger">
-              <div *ngIf="examForm.controls.categoryId.errors.required">categoryId is required</div>
-            </div> -->
+            <span class=" help-block text-danger"
+                        *ngIf="((examForm.get('categoryId').touched ||
+                              examForm.get('categoryId').dirty) &&
+                              examForm.get('categoryId').errors)">
+              <span *ngIf="examForm.get('categoryId').errors.required">Category is required </span>
+              
+            </span>
            
           </td>
         </tr>
         <tr>
           <td class="control-label">Score</td>
           <td>
-            <!-- [(ngModel)]="the_score"  -->
-            <input class="form-control" type="text" formControlName="score">
-            <div *ngIf="submitted && examForm.controls.score.errors" class="text-danger">
-              <div *ngIf="examForm.controls.score.errors.required">score is required</div>
-            </div>
-
+            <input class="form-control" type="text" formControlName="score" 
+                    [ngClass]="{'has-error': ((examForm.get('score').touched ||
+                                            examForm.get('score').dirty) &&
+                                            examForm.get('score').errors)}">
+            <span class=" help-block text-danger"
+                          *ngIf="((examForm.get('score').touched ||
+                                examForm.get('score').dirty) &&
+                                examForm.get('score').errors)">
+             <span *ngIf="examForm.get('score').errors.required">Score is required </span>
+             <span *ngIf="examForm.get('score').errors.pattern"> Only Numbers allowed</span>
+            
+            </span>
           </td>
         </tr>
 
